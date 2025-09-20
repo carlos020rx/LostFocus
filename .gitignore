@@ -11,13 +11,7 @@
 [Bb]uilds/
 [Ll]ogs/
 =======
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
->>>>>>> 7fef9fa461eb3147574e4ce497d06917367feb6f
+
 /[Uu]ser[Ss]ettings/
 *.log
 
@@ -30,8 +24,7 @@
 <<<<<<< HEAD
 [Mm]emoryCaptures/
 =======
-/[Mm]emoryCaptures/
->>>>>>> 7fef9fa461eb3147574e4ce497d06917367feb6f
+
 
 # Recordings can get excessive in size
 /[Rr]ecordings/
