@@ -54,4 +54,15 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isMoving", moveInput != 0);
         animator.SetBool("isGrounded", isGrounded);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+            if (collision.CompareTag("Nutriente"))
+            {
+                Debug.Log("Lo agarraste");
+            }
+    
+    }
+
+    
 }
