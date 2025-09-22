@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
-    public float moveSpeed = 5f;   // Velocidad de movimiento
+    public float moveSpeed = 5f;    // Velocidad de movimiento
     public float jumpForce = 12f;   // Fuerza del salto
 
     [Header("Componentes")]
@@ -19,10 +19,45 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     private bool isGrounded;
 
-    private float moveInput;
-
+    [Header("Sonidos")]
     public AudioSource footstepsAudio;
     public AudioSource jump;
+
+    // --- Nuevo Input System ---
+    private EntradasMovimiento controles;
+    private float moveInput;
+    private bool jumpPressed;
+
+    void Awake()
+    {
+        controles = new EntradasMovimiento();
+
+        // Movimiento horizontal (teclado + botones del canvas)
+        controles.Juego.Horizontal.performed += ctx =>
+        {
+            moveInput = ctx.ReadValue<float>();
+        };
+        controles.Juego.Horizontal.canceled += ctx =>
+        {
+            moveInput = 0f;
+        };
+
+        // Salto (teclado + botón)
+        controles.Juego.Salto.performed += ctx =>
+        {
+            jumpPressed = true;
+        };
+    }
+
+    void OnEnable()
+    {
+        controles.Juego.Enable();
+    }
+
+    void OnDisable()
+    {
+        controles.Juego.Disable();
+    }
 
     void Start()
     {
@@ -33,8 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // --- Movimiento Horizontal ---
-        moveInput = Input.GetAxisRaw("Horizontal"); // A/D o ←/→
+        // --- Movimiento horizontal ---
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
         // --- Voltear el sprite ---
@@ -47,18 +81,20 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // --- Saltar ---
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (jumpPressed && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            animator.SetTrigger("Jump"); // Activa animación de salto
+            animator.SetTrigger("Jump");
             jump.Play();
+            jumpPressed = false; // evita múltiples saltos en una sola pulsación
         }
 
-        // --- Pasar parámetros al Animator ---
-        animator.SetBool("isMoving", moveInput != 0);
+        // --- Parámetros del Animator ---
+        animator.SetBool("isMoving", Mathf.Abs(moveInput) > 0.01f);
         animator.SetBool("isGrounded", isGrounded);
 
-        if (isGrounded && moveInput != 0)
+        // --- Sonido de pasos ---
+        if (isGrounded && Mathf.Abs(moveInput) > 0.01f)
         {
             if (!footstepsAudio.isPlaying)
                 footstepsAudio.Play();
@@ -75,10 +111,6 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Nutriente"))
         {
             Debug.Log("Lo agarraste");
-
         }
-
     }
-
-
 }

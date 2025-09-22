@@ -15,8 +15,8 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Saltar",
-                    "type": "PassThrough",
+                    "name": "Salto",
+                    "type": "Button",
                     "id": "8a0f6864-1002-4df8-9709-c253bc2b5cb9",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -65,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Saltar",
+                    "action": "Salto",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
