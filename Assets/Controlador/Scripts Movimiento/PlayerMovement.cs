@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float moveInput;
 
+    public AudioSource footstepsAudio;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,16 +55,28 @@ public class PlayerMovement : MonoBehaviour
         // --- Pasar parámetros al Animator ---
         animator.SetBool("isMoving", moveInput != 0);
         animator.SetBool("isGrounded", isGrounded);
+
+        if (isGrounded && moveInput != 0)
+        {
+            if (!footstepsAudio.isPlaying)
+                footstepsAudio.Play();
+        }
+        else
+        {
+            if (footstepsAudio.isPlaying)
+                footstepsAudio.Stop();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-            if (collision.CompareTag("Nutriente"))
-            {
-                Debug.Log("Lo agarraste");
-            }
-    
+        if (collision.CompareTag("Nutriente"))
+        {
+            Debug.Log("Lo agarraste");
+
+        }
+
     }
 
-    
+
 }
