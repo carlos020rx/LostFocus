@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
     public float moveSpeed = 5f;   // Velocidad de movimiento
-    public float jumpForce = 7f;   // Fuerza del salto
+    public float jumpForce = 12f;   // Fuerza del salto
 
     [Header("Componentes")]
     private Rigidbody2D rb;
@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
 
     private float moveInput;
+
+    public AudioSource footstepsAudio;
+    public AudioSource jump;
 
     void Start()
     {
@@ -48,21 +51,34 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             animator.SetTrigger("Jump"); // Activa animación de salto
+            jump.Play();
         }
 
         // --- Pasar parámetros al Animator ---
         animator.SetBool("isMoving", moveInput != 0);
         animator.SetBool("isGrounded", isGrounded);
+
+        if (isGrounded && moveInput != 0)
+        {
+            if (!footstepsAudio.isPlaying)
+                footstepsAudio.Play();
+        }
+        else
+        {
+            if (footstepsAudio.isPlaying)
+                footstepsAudio.Stop();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-            if (collision.CompareTag("Nutriente"))
-            {
-                Debug.Log("Lo agarraste");
-            }
-    
+        if (collision.CompareTag("Nutriente"))
+        {
+            Debug.Log("Lo agarraste");
+
+        }
+
     }
 
-    
+
 }
