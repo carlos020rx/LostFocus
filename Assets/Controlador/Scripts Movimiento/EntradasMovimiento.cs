@@ -37,8 +37,8 @@ public partial class @EntradasMovimiento: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Saltar"",
-                    ""type"": ""PassThrough"",
+                    ""name"": ""Salto"",
+                    ""type"": ""Button"",
                     ""id"": ""8a0f6864-1002-4df8-9709-c253bc2b5cb9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -87,7 +87,7 @@ public partial class @EntradasMovimiento: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Saltar"",
+                    ""action"": ""Salto"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -99,7 +99,7 @@ public partial class @EntradasMovimiento: IInputActionCollection2, IDisposable
         // Juego
         m_Juego = asset.FindActionMap("Juego", throwIfNotFound: true);
         m_Juego_Horizontal = m_Juego.FindAction("Horizontal", throwIfNotFound: true);
-        m_Juego_Saltar = m_Juego.FindAction("Saltar", throwIfNotFound: true);
+        m_Juego_Salto = m_Juego.FindAction("Salto", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -162,13 +162,13 @@ public partial class @EntradasMovimiento: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Juego;
     private List<IJuegoActions> m_JuegoActionsCallbackInterfaces = new List<IJuegoActions>();
     private readonly InputAction m_Juego_Horizontal;
-    private readonly InputAction m_Juego_Saltar;
+    private readonly InputAction m_Juego_Salto;
     public struct JuegoActions
     {
         private @EntradasMovimiento m_Wrapper;
         public JuegoActions(@EntradasMovimiento wrapper) { m_Wrapper = wrapper; }
         public InputAction @Horizontal => m_Wrapper.m_Juego_Horizontal;
-        public InputAction @Saltar => m_Wrapper.m_Juego_Saltar;
+        public InputAction @Salto => m_Wrapper.m_Juego_Salto;
         public InputActionMap Get() { return m_Wrapper.m_Juego; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -181,9 +181,9 @@ public partial class @EntradasMovimiento: IInputActionCollection2, IDisposable
             @Horizontal.started += instance.OnHorizontal;
             @Horizontal.performed += instance.OnHorizontal;
             @Horizontal.canceled += instance.OnHorizontal;
-            @Saltar.started += instance.OnSaltar;
-            @Saltar.performed += instance.OnSaltar;
-            @Saltar.canceled += instance.OnSaltar;
+            @Salto.started += instance.OnSalto;
+            @Salto.performed += instance.OnSalto;
+            @Salto.canceled += instance.OnSalto;
         }
 
         private void UnregisterCallbacks(IJuegoActions instance)
@@ -191,9 +191,9 @@ public partial class @EntradasMovimiento: IInputActionCollection2, IDisposable
             @Horizontal.started -= instance.OnHorizontal;
             @Horizontal.performed -= instance.OnHorizontal;
             @Horizontal.canceled -= instance.OnHorizontal;
-            @Saltar.started -= instance.OnSaltar;
-            @Saltar.performed -= instance.OnSaltar;
-            @Saltar.canceled -= instance.OnSaltar;
+            @Salto.started -= instance.OnSalto;
+            @Salto.performed -= instance.OnSalto;
+            @Salto.canceled -= instance.OnSalto;
         }
 
         public void RemoveCallbacks(IJuegoActions instance)
@@ -214,6 +214,6 @@ public partial class @EntradasMovimiento: IInputActionCollection2, IDisposable
     public interface IJuegoActions
     {
         void OnHorizontal(InputAction.CallbackContext context);
-        void OnSaltar(InputAction.CallbackContext context);
+        void OnSalto(InputAction.CallbackContext context);
     }
 }
