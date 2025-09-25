@@ -40,7 +40,7 @@ public class NPCDialogue : MonoBehaviour
         }
 
         // Avanzar con Q
-        if (dialogueStarted && Input.GetKeyDown(KeyCode.Q))
+        if (dialogueStarted && (Input.GetMouseButtonDown(1) || Input.touchCount > 1))// Input.GetKeyDown(KeyCode.Q))
         {
             FindObjectOfType<DialogueManager>().DisplayNextLine();
         }
