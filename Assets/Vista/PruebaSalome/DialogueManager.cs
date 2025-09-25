@@ -99,7 +99,7 @@ public class DialogueManager : MonoBehaviour
             else if (playerLines.Count > 0)
             {
                 isPlayerTurn = true;
-                DisplayNextLine(); // recursion segura: ahora mostrará la línea del jugador
+                DisplayNextLine(); // muestra la línea del jugador
                 return;
             }
             else

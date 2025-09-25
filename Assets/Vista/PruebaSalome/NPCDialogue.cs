@@ -18,11 +18,11 @@ public class NPCDialogue : MonoBehaviour
     public GameObject playerBubble;          // Burbuja del jugador
     public TextMeshProUGUI playerText;
 
-    public GameObject npcBubble;             // Burbuja de este NPC
+    public GameObject npcBubble;             // Burbuja del NPC
     public TextMeshProUGUI npcText;
 
     private bool playerInRange = false;
-    private bool dialogueStarted = false; // 👈 para asegurarnos de que no se reinicie
+    private bool dialogueStarted = false; // para que no se reinicie
 
     private void Update()
     {
