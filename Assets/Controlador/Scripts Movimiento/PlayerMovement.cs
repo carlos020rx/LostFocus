@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
@@ -28,6 +30,15 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput;
     private bool jumpPressed;
 
+    [Header("Otros")]
+    private float nutrientes;
+    public TMP_Text textoNutriente;
+    public Slider nutrienteSlider;
+    private float nutrienteMax = 5f;
+    private float nutrienteActual;
+
+
+
     void Awake()
     {
         controles = new EntradasMovimiento();
@@ -49,6 +60,18 @@ public class PlayerMovement : MonoBehaviour
         };
     }
 
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        textoNutriente.text = "0";
+        nutrienteSlider.maxValue = nutrienteMax;
+        nutrienteActual = 0;
+        nutrienteSlider.value = nutrienteActual;
+    }
+
     void OnEnable()
     {
         controles.Juego.Enable();
@@ -57,13 +80,6 @@ public class PlayerMovement : MonoBehaviour
     void OnDisable()
     {
         controles.Juego.Disable();
-    }
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -111,6 +127,11 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Nutriente"))
         {
             Debug.Log("Lo agarraste");
+            Destroy(collision.gameObject);
+            nutrientes++;
+            textoNutriente.text = nutrientes.ToString();
+            nutrienteActual = nutrientes;
+            nutrienteSlider.value = nutrienteActual;
         }
     }
 }
