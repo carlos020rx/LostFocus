@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Nutriente
+  - coleccionable
   layers:
   - Default
   - TransparentFX
