@@ -7,6 +7,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movimiento")]
     public float moveSpeed = 5f;    // Velocidad de movimiento
     public float jumpForce = 12f;   // Fuerza del salto
+    public Transform Player;
+    private float horizontal;
+    private bool mirandoDerecha = true;
+    private float x;
+    public float velocidad = 5f;
+
 
     [Header("Componentes")]
     private Rigidbody2D rb;
@@ -27,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     private EntradasMovimiento controles;
     private float moveInput;
     private bool jumpPressed;
+
+    private float sensibilidad = 2.0f;
+
 
     void Awake()
     {
@@ -72,18 +81,33 @@ public class PlayerMovement : MonoBehaviour
 
         //if (inicioMinijuego)
         //{
-            // --- Movimiento por giroscopio/acelerómetro ---
-            // El valor de Input.acceleration.x suele estar entre -1 y 1
-            float tilt = Input.acceleration.x;
+        // --- Movimiento por giroscopio/acelerómetro ---
+        // El valor de Input.acceleration.x suele estar entre -1 y 1
+        float x = Input.acceleration.x * sensibilidad;
 
-            // Puedes ajustar la sensibilidad
-            float sensibilidad = 1.5f;
+        // Puedes ajustar la sensibilidad
 
-            // Si detecta una inclinación significativa, usamos el tilt
-            if (Mathf.Abs(tilt) > 0.1f)
-            {
-                input = tilt * sensibilidad;
-            }
+        // Si detecta una inclinación significativa, usamos el tilt
+        if (x > 0 || x < 0)
+        {
+            animator.SetBool("isMoving", Mathf.Abs(x) > 0.01f);
+        }
+        else
+        {
+            animator.SetFloat("isMoving", x);
+        }
+
+        if (x < 0)
+        {
+            Player.position -= transform.right * velocidad * Time.deltaTime;
+        }
+
+        if (x > 0)
+        {
+            Player.position += transform.right * velocidad * Time.deltaTime;
+        }
+
+        voltear();
         //}
 
 
@@ -123,6 +147,26 @@ public class PlayerMovement : MonoBehaviour
             if (footstepsAudio.isPlaying)
                 footstepsAudio.Stop();
         }
+    }
+
+        private void voltear()
+    {
+        if (mirandoDerecha && horizontal < 0f || !mirandoDerecha && horizontal > 0f)
+        {
+            mirandoDerecha = !mirandoDerecha;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+
+        if (mirandoDerecha && x < 0f || !mirandoDerecha && x > 0f)
+        {
+            mirandoDerecha = !mirandoDerecha;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
