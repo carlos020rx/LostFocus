@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     private float x;
     public float velocidad = 5f;
 
+    private float inputX;
+
+
 
     [Header("Componentes")]
     private Rigidbody2D rb;
@@ -83,30 +86,22 @@ public class PlayerMovement : MonoBehaviour
         //{
         // --- Movimiento por giroscopio/acelerómetro ---
         // El valor de Input.acceleration.x suele estar entre -1 y 1
+        // --- Entrada del acelerómetro ---
         float x = Input.acceleration.x * sensibilidad;
 
-        // Puedes ajustar la sensibilidad
-
-        // Si detecta una inclinación significativa, usamos el tilt
-        if (x > 0 || x < 0)
-        {
-            animator.SetBool("isMoving", Mathf.Abs(x) > 0.01f);
-        }
+        // Usamos la inclinación solo si es significativa
+        if (Mathf.Abs(x) > 0.1f)
+            inputX = x;
         else
-        {
-            animator.SetFloat("isMoving", x);
-        }
+            inputX = 0f;
 
-        if (x < 0)
-        {
-            Player.position -= transform.right * velocidad * Time.deltaTime;
-        }
+        // Movimiento
+        Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
 
-        if (x > 0)
-        {
-            Player.position += transform.right * velocidad * Time.deltaTime;
-        }
+        // Animación
+        animator.SetFloat("isMoving2", Mathf.Abs(inputX));
 
+        // Voltear sprite
         voltear();
         //}
 
@@ -149,17 +144,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-        private void voltear()
+    public void voltear()
     {
-        if (mirandoDerecha && horizontal < 0f || !mirandoDerecha && horizontal > 0f)
-        {
-            mirandoDerecha = !mirandoDerecha;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
-
-        if (mirandoDerecha && x < 0f || !mirandoDerecha && x > 0f)
+        if (mirandoDerecha && inputX < 0f || !mirandoDerecha && inputX > 0f)
         {
             mirandoDerecha = !mirandoDerecha;
             Vector3 localScale = transform.localScale;
