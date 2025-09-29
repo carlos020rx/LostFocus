@@ -2296,6 +2296,93 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &593039967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 593039968}
+  m_Layer: 0
+  m_Name: Alimentos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &593039968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593039967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14733702, y: -0.28570122, z: 1190.5924}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1076745729}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1076745728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1076745729}
+  - component: {fileID: 1076745730}
+  m_Layer: 0
+  m_Name: caidaAlimentos
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1076745729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076745728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.189, y: 1.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 593039968}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1076745730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076745728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47485539206c7e842945cd4909822b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruits:
+  - {fileID: 6453895822207030681, guid: c02ed0e678c7003499361f41bc11922e, type: 3}
+  - {fileID: 6453895822207030681, guid: 887b2a2d80d1a714b9b160628934de84, type: 3}
+  - {fileID: 6453895822207030681, guid: 9de0ad01cbae59d4c9108d954acb7eda, type: 3}
+  - {fileID: 6453895822207030681, guid: ccb42e4e2a63e214a9005ebec197bf70, type: 3}
+  - {fileID: 6453895822207030681, guid: d749bdc1b64287542bcb724b2d24c7ae, type: 3}
+  - {fileID: 6453895822207030681, guid: 6293e08f3ed719f4eb6f3d67d6032450, type: 3}
+  - {fileID: 6453895822207030681, guid: 8b175b7d65f24d442b0b998b68ee7176, type: 3}
+  spam: 1.5
+  minTras: 2.3
+  maxTras: -2.3
 --- !u!1 &1405664978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,3 +2615,4 @@ SceneRoots:
   - {fileID: 1405664980}
   - {fileID: 102179003}
   - {fileID: 1718563657}
+  - {fileID: 593039968}

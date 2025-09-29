@@ -68,6 +68,25 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        float input = moveInput;
+
+        //if (inicioMinijuego)
+        //{
+            // --- Movimiento por giroscopio/acelerómetro ---
+            // El valor de Input.acceleration.x suele estar entre -1 y 1
+            float tilt = Input.acceleration.x;
+
+            // Puedes ajustar la sensibilidad
+            float sensibilidad = 1.5f;
+
+            // Si detecta una inclinación significativa, usamos el tilt
+            if (Mathf.Abs(tilt) > 0.1f)
+            {
+                input = tilt * sensibilidad;
+            }
+        //}
+
+
         // --- Movimiento horizontal ---
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
@@ -111,6 +130,12 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Nutriente"))
         {
             Debug.Log("Lo agarraste");
+        }
+
+        if (collision.CompareTag("alimento"))
+        {
+            Debug.Log("te mato");
+            animator.SetTrigger("dano");
         }
     }
 }
