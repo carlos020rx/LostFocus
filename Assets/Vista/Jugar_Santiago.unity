@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 102179005}
   m_Layer: 0
   m_Name: gota
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,6 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   jumpForce: 5
+  Player: {fileID: 102179003}
+  velocidad: 5
   groundCheck: {fileID: 1440134135}
   groundCheckRadius: 0.2
   groundLayer:
