@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Nutriente
   - alimento
+  - coleccionable
   layers:
   - Default
   - TransparentFX
