@@ -9,6 +9,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movimiento")]
     public float moveSpeed = 5f;    // Velocidad de movimiento
     public float jumpForce = 12f;   // Fuerza del salto
+    public Transform Player;
+    private float horizontal;
+    private bool mirandoDerecha = true;
+    private float x;
+    public float velocidad = 5f;
+
+    private float inputX;
+
+
 
     [Header("Componentes")]
     private Rigidbody2D rb;
@@ -30,12 +39,15 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput;
     private bool jumpPressed;
 
+    private float sensibilidad = 2.0f;
+
     [Header("Otros")]
     private float nutrientes;
     public TMP_Text textoNutriente;
     public Slider nutrienteSlider;
     private float nutrienteMax = 5f;
     private float nutrienteActual;
+
 
 
 
@@ -84,6 +96,32 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        float input = moveInput;
+
+        //if (inicioMinijuego)
+        //{
+        // --- Movimiento por giroscopio/acelerómetro ---
+        // El valor de Input.acceleration.x suele estar entre -1 y 1
+        // --- Entrada del acelerómetro ---
+        float x = Input.acceleration.x * sensibilidad;
+
+        // Usamos la inclinación solo si es significativa
+        if (Mathf.Abs(x) > 0.1f)
+            inputX = x;
+        else
+            inputX = 0f;
+
+        // Movimiento
+        Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
+
+        // Animación
+        animator.SetFloat("isMoving2", Mathf.Abs(inputX));
+
+        // Voltear sprite
+        voltear();
+        //}
+
+
         // --- Movimiento horizontal ---
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
@@ -122,6 +160,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void voltear()
+    {
+        if (mirandoDerecha && inputX < 0f || !mirandoDerecha && inputX > 0f)
+        {
+            mirandoDerecha = !mirandoDerecha;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Nutriente"))
@@ -132,6 +182,12 @@ public class PlayerMovement : MonoBehaviour
             textoNutriente.text = nutrientes.ToString();
             nutrienteActual = nutrientes;
             nutrienteSlider.value = nutrienteActual;
+        }
+
+        if (collision.CompareTag("alimento"))
+        {
+            Debug.Log("te mato");
+            animator.SetTrigger("dano");
         }
     }
 }
