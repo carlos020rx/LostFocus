@@ -89,5 +89,15 @@ public class EnciclopediaController : MonoBehaviour
         scrollColleccionables.SetActive(true);
     }
 
+    public string GetUnlockedItemsAsString()
+    {
+        return string.Join(",", unlockedItems);
+    }
+
+    public void LoadUnlockedItemsFromString(string data)
+    {
+        unlockedItems = new HashSet<string>(data.Split(',', System.StringSplitOptions.RemoveEmptyEntries));
+    }
+
 
 }
