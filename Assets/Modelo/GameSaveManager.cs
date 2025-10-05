@@ -66,4 +66,12 @@ public class GameSaveManager : MonoBehaviour
 
         Debug.Log("Datos del juego cargados.");
     }
+
+    [ContextMenu("Resetear todos los datos")]
+    public void ResetAllData()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("Todos los datos de guardado fueron eliminados.");
+    }
 }
