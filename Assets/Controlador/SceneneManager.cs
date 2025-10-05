@@ -18,6 +18,6 @@ public class SceneneManager : MonoBehaviour
     }
 
     public void iniciarJuego(){
-        SceneManager.LoadScene("Jugar");
+        SceneManager.LoadScene("JugarP2");
     }
 }
