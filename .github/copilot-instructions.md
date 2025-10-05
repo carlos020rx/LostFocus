@@ -2,7 +2,7 @@
 - Project name: LostFocus
 - Unity version: Unity 2022.3.43f1
 - Active game object:
-  - Name: DialogosManager
+  - Name: GranGota1
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
