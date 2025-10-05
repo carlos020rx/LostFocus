@@ -950,6 +950,66 @@ MonoBehaviour:
   entryID: Leucocito
   lockedVisual: {fileID: 17018114}
   unlockedVisual: {fileID: 437445303}
+--- !u!1 &116703649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 116703651}
+  - component: {fileID: 116703650}
+  - component: {fileID: 116703652}
+  m_Layer: 0
+  m_Name: MenuController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &116703650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116703649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edaa3103817b4f948a08112976e34ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menu: {fileID: 635816499}
+--- !u!4 &116703651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116703649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8858033, y: 0.06385546, z: -0.07713248}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &116703652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116703649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7f735a28634d542986d2ba20c09441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1878499500}
+  encyclopediaManager: {fileID: 843134942}
 --- !u!1 &119928856
 GameObject:
   m_ObjectHideFlags: 0
@@ -6925,7 +6985,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 506738139}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 116703650}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: cerrarMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &506738139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8360,7 +8432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &635816500
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8605,7 +8677,7 @@ GameObject:
   - component: {fileID: 693906043}
   - component: {fileID: 693906042}
   m_Layer: 5
-  m_Name: EncicoplediaButton (1)
+  m_Name: PausaButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8674,9 +8746,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 843134942}
-        m_TargetAssemblyTypeName: EnciclopediaController, Assembly-CSharp
-        m_MethodName: abrirEnciclopedia
+      - m_Target: {fileID: 116703650}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: abrirMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8706,7 +8778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3f653585f972752499b1496015a756bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9203721abf7a8b14d971c8d638547fb1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8940,7 +9012,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 725086626}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 116703652}
+        m_TargetAssemblyTypeName: GameSaveManager, Assembly-CSharp
+        m_MethodName: SaveAndExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &725086626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9974,7 +10058,7 @@ GameObject:
   - component: {fileID: 843134943}
   - component: {fileID: 843134942}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: EnciclopediaController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11672,7 +11756,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 13.899996, y: -27.35}
+  m_AnchoredPosition: {x: 13.899994, y: -27.35}
   m_SizeDelta: {x: -27.8, y: 54.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093252685
@@ -18713,7 +18797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 463.35, y: -170.6}
+  m_AnchoredPosition: {x: 463.35, y: -170.59998}
   m_SizeDelta: {x: 926.7, y: 341.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1858222140
@@ -21669,5 +21753,6 @@ SceneRoots:
   - {fileID: 1878499506}
   - {fileID: 543064230}
   - {fileID: 1348414049}
-  - {fileID: 843134943}
   - {fileID: 431104615}
+  - {fileID: 843134943}
+  - {fileID: 116703651}
