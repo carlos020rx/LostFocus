@@ -3142,6 +3142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054ce51920efb4e44875de249778e09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btnMov1: {fileID: 598091078}
+  btnMov2: {fileID: 1828285050}
+  btnSalto: {fileID: 1218585942}
 --- !u!4 &1207096582
 Transform:
   m_ObjectHideFlags: 0

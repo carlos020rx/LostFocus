@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -16,8 +16,11 @@ public class DialogueManager : MonoBehaviour
     private GameObject npcBubble;
     private TextMeshProUGUI npcText;
 
-    // Indica si hay un diálogo activo
-    public bool IsDialogueActive { get; private set; } = false;
+    public GameObject btnMov1, btnMov2, btnSalto;
+
+    // Indica si hay un diÃ¡logo activo
+    public bool isDialogueActive { get; private set; } = false;
+    private bool isLineActive = false;
 
     private void Awake()
     {
@@ -31,8 +34,42 @@ public class DialogueManager : MonoBehaviour
         GameObject npcBubbleObj, TextMeshProUGUI npcTextObj,
         bool startsWithPlayer)
     {
-        // Si ya hay un diálogo en curso no lo reiniciamos
-        if (IsDialogueActive) return;
+        btnMov1.SetActive(false);
+        btnMov2.SetActive(false);
+        btnSalto.SetActive(false);
+
+        StartCoroutine(EmpezarDialogo(playerDialogue, npcDialogue,
+        playerBubbleObj, playerTextObj, npcBubbleObj, npcTextObj, startsWithPlayer));
+
+    }
+
+    public void DisplayNextLine()
+    {
+        if (!isDialogueActive || isLineActive) return;
+        StartCoroutine(SigDialogo());
+
+    }
+
+    public void EndDialogue()
+    {
+        if (playerBubble != null) playerBubble.SetActive(false);
+        if (npcBubble != null) npcBubble.SetActive(false);
+
+        isDialogueActive = false;
+        btnMov1.SetActive(true);
+        btnMov2.SetActive(true);
+        btnSalto.SetActive(true);
+        Debug.Log("DiÃ¡logo terminado");
+    }
+
+    /*Corutinas*/
+    IEnumerator EmpezarDialogo(string[] playerDialogue, string[] npcDialogue,
+    GameObject playerBubbleObj, TextMeshProUGUI playerTextObj,
+    GameObject npcBubbleObj, TextMeshProUGUI npcTextObj,
+    bool startsWithPlayer)
+    {
+        yield return new WaitForSeconds(1.2f); // Espera antes de iniciar
+
 
         playerLines.Clear();
         npcLines.Clear();
@@ -43,79 +80,84 @@ public class DialogueManager : MonoBehaviour
         foreach (string line in npcDialogue)
             npcLines.Enqueue(line);
 
-        // Guardamos referencias
         playerBubble = playerBubbleObj;
         playerText = playerTextObj;
         npcBubble = npcBubbleObj;
         npcText = npcTextObj;
 
         isPlayerTurn = startsWithPlayer;
-        IsDialogueActive = true;
+        isDialogueActive = true;
 
-        DisplayNextLine();
+        DisplayNextLine(); // muestra la primera lÃ­nea
     }
 
-    public void DisplayNextLine()
+    IEnumerator SigDialogo()
     {
-        if (!IsDialogueActive) return;
+        isLineActive = true; // ðŸ”¹ activa bandera
+
+        if (!isDialogueActive)
+        {
+            isLineActive = false;
+            yield break;
+        }
 
         // Apagamos burbujas antes de mostrar la siguiente
         if (playerBubble != null) playerBubble.SetActive(false);
         if (npcBubble != null) npcBubble.SetActive(false);
 
-        // Caso: si el turno actual no tiene líneas, saltamos al otro si existen líneas
+        yield return new WaitForSeconds(0.5f);
+
+        // Caso: si el turno actual no tiene lÃ­neas, saltamos al otro si existen lÃ­neas
         if (isPlayerTurn)
         {
             if (playerLines.Count > 0)
             {
                 string line = playerLines.Dequeue();
-                if (playerBubble != null) playerBubble.SetActive(true);
+                playerBubble?.SetActive(true);
                 if (playerText != null) playerText.text = line;
-                isPlayerTurn = !isPlayerTurn;
-                return;
+                // despuÃ©s de mostrar jugador, el siguiente serÃ¡ NPC
+                isPlayerTurn = false;
             }
             else if (npcLines.Count > 0)
             {
-                isPlayerTurn = false; // saltamos al NPC
+                // no hay lÃ­nea del jugador -> mostramos NPC en este mismo toque
+                string line = npcLines.Dequeue();
+                npcBubble?.SetActive(true);
+                if (npcText != null) npcText.text = line;
+                // despuÃ©s de mostrar NPC, el siguiente serÃ¡ jugador
+                isPlayerTurn = true;
             }
             else
             {
                 EndDialogue();
-                return;
+                isLineActive = false;
+                yield break;
             }
         }
-
-        // Aquí manejamos turno NPC (o llegamos por salto)
-        if (!isPlayerTurn)
+        else // turno NPC
         {
             if (npcLines.Count > 0)
             {
                 string line = npcLines.Dequeue();
-                if (npcBubble != null) npcBubble.SetActive(true);
+                npcBubble?.SetActive(true);
                 if (npcText != null) npcText.text = line;
-                isPlayerTurn = !isPlayerTurn;
-                return;
+                isPlayerTurn = true;
             }
             else if (playerLines.Count > 0)
             {
-                isPlayerTurn = true;
-                DisplayNextLine(); // muestra la línea del jugador
-                return;
+                string line = playerLines.Dequeue();
+                playerBubble?.SetActive(true);
+                if (playerText != null) playerText.text = line;
+                isPlayerTurn = false;
             }
             else
             {
                 EndDialogue();
-                return;
+                isLineActive = false;
+                yield break;
             }
         }
-    }
 
-    public void EndDialogue()
-    {
-        if (playerBubble != null) playerBubble.SetActive(false);
-        if (npcBubble != null) npcBubble.SetActive(false);
-
-        IsDialogueActive = false;
-        Debug.Log("Diálogo terminado");
+        isLineActive = false;
     }
 }

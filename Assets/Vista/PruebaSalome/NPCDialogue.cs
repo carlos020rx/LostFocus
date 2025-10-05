@@ -40,9 +40,12 @@ public class NPCDialogue : MonoBehaviour
         }
 
         // Avanzar con Q
-        if (dialogueStarted && (Input.GetMouseButtonDown(1) || Input.touchCount > 1))// Input.GetKeyDown(KeyCode.Q))
+        if (dialogueStarted && (Input.GetKeyDown(KeyCode.Q) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))// Input.GetKeyDown(KeyCode.Q))
         {
+            //StartCoroutine(MostrarSig());
             FindObjectOfType<DialogueManager>().DisplayNextLine();
+            Debug.Log("Q");
+
         }
     }
 
@@ -62,5 +65,13 @@ public class NPCDialogue : MonoBehaviour
             playerInRange = false;
             dialogueStarted = false; // resetear cuando salga
         }
+    }
+
+    IEnumerator MostrarSig()
+    {
+        Debug.Log("Inicio de la coroutine");
+        yield return new WaitForSeconds(1f);
+        //FindObjectOfType<DialogueManager>().DisplayNextLine();
+        Debug.Log("Han pasado 2 segundos");
     }
 }
