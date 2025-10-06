@@ -16,11 +16,12 @@ public class PopupTester : MonoBehaviour
     public bool playSequence; // único booleano desde el Inspector
     public bool showMessage4;
     public bool showMessage5;
-    public bool blinkAutoTrigger;
+    public bool blinkAutoTrigger; 
+    public bool terminoMensaje1=false;
 
     [Header("Tiempos")]
     [SerializeField] private float msg3Lifetime = 3f;   // dura 3s
-    [SerializeField] private float afterMsg3Delay = 1f; // espera 1s luego de desaparecer
+    [SerializeField] private float afterMsg3Delay = 0.5f; // espera 1s luego de desaparecer
     [SerializeField] private float groupLifetime = 5f;  // cuanto duran juntos msg1 y msg2
     [SerializeField] private float lifetimeSeconds = 5f;  // Cuanto duran los otros mensajes
     [SerializeField] private float blinkDurationSeconds = 5f;
@@ -119,5 +120,6 @@ public class PopupTester : MonoBehaviour
         message1?.HideImmediate();
         message2?.HideImmediate();
         message3?.HideImmediate();
+        terminoMensaje1 = true;
     }
 }

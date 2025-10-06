@@ -8,12 +8,14 @@ public class caidaAlimentos : MonoBehaviour
     [SerializeField] float spam = 0.5f;
     [SerializeField] float minTras;
     [SerializeField] float maxTras;
+    public PopupTester popupTester;
+    private int contador=1;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(fruitsSpawn());
+        
     }
     IEnumerator fruitsSpawn()
     {
@@ -29,6 +31,12 @@ public class caidaAlimentos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (popupTester.terminoMensaje1 == true && contador==1)
+        {
+
+            StartCoroutine(fruitsSpawn());
+            contador = 2;
+        }
+            
     }
 }

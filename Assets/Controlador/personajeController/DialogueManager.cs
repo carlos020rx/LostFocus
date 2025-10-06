@@ -10,6 +10,9 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> playerLines;
     private Queue<string> npcLines;
 
+    public PopupTester popupTester;
+
+
     private bool isPlayerTurn = true;
 
     private GameObject playerBubble;
@@ -73,10 +76,17 @@ public class DialogueManager : MonoBehaviour
         if (currentNPCID == "GranGota2")
         {
             Nutrientes.SetActive(false);
+            StartCoroutine(Minijuego1Mensaje());
+
         }
     }
 
     /*Corutinas*/
+    IEnumerator Minijuego1Mensaje() {
+        yield return new WaitForSeconds(1.2f);
+
+        popupTester.playSequence = true;
+    }
     IEnumerator EmpezarDialogo(string[] playerDialogue, string[] npcDialogue,
     GameObject playerBubbleObj, TextMeshProUGUI playerTextObj,
     GameObject npcBubbleObj, TextMeshProUGUI npcTextObj,
