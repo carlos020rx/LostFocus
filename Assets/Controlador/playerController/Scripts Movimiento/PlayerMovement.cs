@@ -31,8 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
 
     [Header("Sonidos")]
-    public AudioSource footstepsAudio;
-    public AudioSource jump;
+    public AudioSource footstepsAudio,jump, audRecolectado;
 
     // --- Nuevo Input System ---
     private EntradasMovimiento controles;
@@ -189,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Lo agarraste");
             Destroy(collision.gameObject);
+            audRecolectado.Play();
             nutrientes++;
             textoNutriente.text = nutrientes.ToString();
             nutrienteActual = nutrientes;
@@ -205,7 +205,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Lo agarraste");
             Destroy(collision.gameObject);
-     
+            audRecolectado.Play();
+
         }
     }
 }

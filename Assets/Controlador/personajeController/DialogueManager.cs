@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     private GameObject npcBubble;
     private TextMeshProUGUI npcText;
 
-    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes,Nutrientes2,GranGota1;
+    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes, Nutrientes2, GranGota1, TriggerInicial, TriggerMedio;
 
     // Indica si hay un diálogo activo
     public bool isDialogueActive { get; private set; } = false;
@@ -79,6 +79,18 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(Minijuego1Mensaje());
 
         }
+
+        if (currentNPCID == "Inicio")
+        {
+            TriggerInicial.SetActive(false);
+
+        }
+
+        if (currentNPCID == "Medio")
+        {
+            TriggerMedio.SetActive(false);
+
+        }
     }
 
     /*Corutinas*/
@@ -92,7 +104,7 @@ public class DialogueManager : MonoBehaviour
     GameObject npcBubbleObj, TextMeshProUGUI npcTextObj,
     bool startsWithPlayer)
     {
-        yield return new WaitForSeconds(1.2f); // Espera antes de iniciar
+        yield return new WaitForSeconds(1f); // Espera antes de iniciar
 
 
         playerLines.Clear();

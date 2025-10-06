@@ -30,6 +30,7 @@ public class PopupTester : MonoBehaviour
     private bool _prev4, _prev5;
     private bool _prevBlinkAuto;
     private Coroutine _sequenceRoutine;
+    public AudioSource sonidoAlerta;
 
     private void Update()
     {
@@ -79,6 +80,8 @@ public class PopupTester : MonoBehaviour
         if (message3 != null)
         {
             message3.Show(msg3Lifetime, pulse: false);
+            sonidoAlerta.Play();
+
             // Espera su vida útil + su animación de salida antes del delay extra
             yield return new WaitForSeconds(msg3Lifetime + message3.DisappearDuration);
         }
