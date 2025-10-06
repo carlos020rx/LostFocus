@@ -52,9 +52,6 @@ public class PlayerMovement : MonoBehaviour
     public bool nutrientesFin = false;
 
 
-    public PopupTester popupTester;
-
-    public GameManager gameManager;
 
 
     void Awake()
@@ -109,29 +106,23 @@ public class PlayerMovement : MonoBehaviour
         // --- Movimiento por giroscopio/acelerómetro ---
         // El valor de Input.acceleration.x suele estar entre -1 y 1
         // --- Entrada del acelerómetro ---
-        if (popupTester.terminoMensaje1 == true)
-        {
-            gameManager.desactivarBotones();
+        float x = Input.acceleration.x * sensibilidad;
 
-            float x = Input.acceleration.x * sensibilidad;
+        // Usamos la inclinación solo si es significativa
+        if (Mathf.Abs(x) > 0.1f)
+            inputX = x;
+        else
+            inputX = 0f;
 
-            // Usamos la inclinación solo si es significativa
-            if (Mathf.Abs(x) > 0.1f)
-                inputX = x;
-            else
-                inputX = 0f;
+        // Movimiento
+        Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
 
-            // Movimiento
-            Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
+        // Animación
+        //animator.SetFloat("isMoving2", Mathf.Abs(inputX));
 
-            // Animación
-            //animator.SetFloat("isMoving2", Mathf.Abs(inputX));
-
-            // Voltear sprite
-            voltear();
-            //}
-        }
-
+        // Voltear sprite
+        voltear();
+        //}
 
 
         // --- Movimiento horizontal ---

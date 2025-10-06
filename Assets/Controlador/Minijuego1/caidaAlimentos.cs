@@ -9,16 +9,13 @@ public class caidaAlimentos : MonoBehaviour
     [SerializeField] float minTras;
     [SerializeField] float maxTras;
     public PopupTester popupTester;
-    private int contador = 1;
-
-    public GameObject limIzq, limDer;
+    private int contador=1;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        limIzq.SetActive(false);
-        limDer.SetActive(false);
+        
     }
     IEnumerator fruitsSpawn()
     {
@@ -39,21 +36,7 @@ public class caidaAlimentos : MonoBehaviour
 
             StartCoroutine(fruitsSpawn());
             contador = 2;
-            ponerLimites();
         }
             
     }
-
-    private void ponerLimites()
-    {
-        limIzq.SetActive(true);
-        limDer.SetActive(true);
-    }
-
-    private void quitarLimites()
-    {
-        limIzq.SetActive(false);
-        limDer.SetActive(false);
-    }
-
 }
