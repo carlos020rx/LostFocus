@@ -21,7 +21,11 @@ public class DialogueManager : MonoBehaviour
     private GameObject npcBubble;
     private TextMeshProUGUI npcText;
 
+<<<<<<< HEAD
     public GameObject btnMov1, btnMov2, btnSalto, Nutrientes, Nutrientes2, GranGota1, TriggerInicial, TriggerMedio;
+=======
+    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes,Nutrientes2,GranGota1, GranGota2;
+>>>>>>> 2b5a67d199d3cd6635edee424b7531d228cbf355
 
     // Indica si hay un diálogo activo
     public bool isDialogueActive { get; private set; } = false;
@@ -95,9 +99,12 @@ public class DialogueManager : MonoBehaviour
 
     /*Corutinas*/
     IEnumerator Minijuego1Mensaje() {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.5f);
 
         popupTester.playSequence = true;
+        GranGota2.SetActive(false);
+        Debug.Log("Aquitoy");
+
     }
     IEnumerator EmpezarDialogo(string[] playerDialogue, string[] npcDialogue,
     GameObject playerBubbleObj, TextMeshProUGUI playerTextObj,
