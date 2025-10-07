@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     public float maxDelay = 10f;
     public PlayerMovement player;
     public GameObject granGota2;
-    private int contador = 1;
+    //private int contador = 1;
 
     public GameObject btnIz, btnDer, btnSalto;
 
@@ -44,6 +45,10 @@ public class GameManager : MonoBehaviour
 
             player.inicioMinijuego = false;
         }
+
+
+
+
     }
     IEnumerator PlayRandomSound()
     {

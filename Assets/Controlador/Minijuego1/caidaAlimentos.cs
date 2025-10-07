@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class caidaAlimentos : MonoBehaviour
@@ -13,12 +14,26 @@ public class caidaAlimentos : MonoBehaviour
 
     public GameObject limIzq, limDer;
 
+    [Header("Temporizador")]
+    private float timer;
+    private int minutos, segundos;
+    [SerializeField] private TMP_Text txtTiempo;
+    [SerializeField, Tooltip("tiempo en segundos")] private float tiempoRestante = 30f;
+    public GameObject temporizador;
+
+    private bool enMinijuego1;
+
 
     // Start is called before the first frame update
     void Start()
     {
         limIzq.SetActive(false);
         limDer.SetActive(false);
+
+        txtTiempo.text = "";
+        timer = tiempoRestante;
+        enMinijuego1 = false;
+        temporizador.SetActive(false);
     }
     IEnumerator fruitsSpawn()
     {
@@ -40,8 +55,40 @@ public class caidaAlimentos : MonoBehaviour
             StartCoroutine(fruitsSpawn());
             contador = 2;
             ponerLimites();
+            enMinijuego1 = true;
         }
+
+        minutos = (int)(timer / 60f);
+        segundos = (int)(timer - minutos * 60f);
+
+        if (enMinijuego1)
+        {
+            temporizador.SetActive(true);
+            if (timer > 0)
+            {
+
+                //Recoge el tiempo con el que trabaja el computador(?
+                timer -= Time.deltaTime;
+                //Vamos actualizando el texto en pantalla
+                txtTiempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+            } 
             
+            if (timer > 0 && timer <= 15) 
+            {
+                //Aquí lo del aumento de dificultad
+                popupTester.blinkAutoTrigger = true;
+            }
+            else if (timer <= 0)
+            {
+                //Aquí lo que se hace cuando se acaba el tiempo (gana)
+                enMinijuego1 = false;
+                temporizador.SetActive(false);
+
+
+            }
+        }
+       
+
     }
 
     private void ponerLimites()
