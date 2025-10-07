@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private Coroutine randomSoundCoroutine;
+
     public AudioSource audioSource;
     public AudioClip[] soundEffects;
     public float minDelay = 5f;
@@ -14,23 +16,36 @@ public class GameManager : MonoBehaviour
 
     public GameObject btnIz, btnDer, btnSalto;
 
+    public AudioSource BGSound, miniJuego1Sound;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(PlayRandomSound());
+        randomSoundCoroutine = StartCoroutine(PlayRandomSound());
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.nutrientesFin && contador == 1)
+        if (player.inicioMinijuego)
         {
-            granGota2.SetActive(true);
-            contador = 2;
+            if (randomSoundCoroutine != null)
+            {
+                StopCoroutine(randomSoundCoroutine);
+                randomSoundCoroutine = null;
+            }
+
+            audioSource.Stop();
+            BGSound.Pause();
+
+            miniJuego1Sound.mute = false;
+            //miniJuego1Sound.time = 5f;
+
+            player.inicioMinijuego = false;
         }
     }
-     IEnumerator PlayRandomSound()
+    IEnumerator PlayRandomSound()
     {
         while (true)
         {

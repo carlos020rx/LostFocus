@@ -56,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameManager gameManager;
 
+    
+
 
     void Awake()
     {
@@ -130,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
             // Voltear sprite
             voltear();
             //}
+            inicioMinijuego = true;
         }
 
 
