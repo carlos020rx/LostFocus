@@ -52,14 +52,11 @@ public class PopupTester : MonoBehaviour
             // Por si había algo corriendo, cancelo y limpio
             StopSequenceAndHideAll();
             _sequenceRoutine = StartCoroutine(SequenceRoutine());
-            terminoMensaje1 = false;
         }
         // Flanco de bajada: cancelar todo y ocultar inmediatamente
-       if (!playSequence && _prevPlay)
+        else if (!playSequence && _prevPlay)
         {
             StopSequenceAndHideAll();
-
-            terminoMensaje1 = true;
         }
 
         // Disparo automático del parpadeo independiente (flanco false -> true)
@@ -75,7 +72,6 @@ public class PopupTester : MonoBehaviour
         _prevPlay = playSequence;
         _prev4 = showMessage4;
         _prev5 = showMessage5;
-
     }
 
     private IEnumerator SequenceRoutine()
@@ -106,9 +102,6 @@ public class PopupTester : MonoBehaviour
 
         // playSequence = false;
         _sequenceRoutine = null;
-
-        playSequence = false;
-        terminoMensaje1 = true;
     }
 
     private float MaxDisappearDuration(PopupMessage a, PopupMessage b)
@@ -130,6 +123,6 @@ public class PopupTester : MonoBehaviour
         message1?.HideImmediate();
         message2?.HideImmediate();
         message3?.HideImmediate();
-     
+        terminoMensaje1 = true;
     }
 }
