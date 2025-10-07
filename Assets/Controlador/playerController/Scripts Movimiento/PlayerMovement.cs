@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+    
+
 
     void Awake()
     {
@@ -119,6 +121,17 @@ public class PlayerMovement : MonoBehaviour
 
         // Animación
         //animator.SetFloat("isMoving2", Mathf.Abs(inputX));
+            // Movimiento
+            Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
+
+            // Animación
+            //animator.SetFloat("isMoving2", Mathf.Abs(inputX));
+
+            // Voltear sprite
+            voltear();
+            //}
+            inicioMinijuego = true;
+    
 
         // Voltear sprite
         voltear();
