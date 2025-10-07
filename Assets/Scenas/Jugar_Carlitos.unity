@@ -890,7 +890,7 @@ Transform:
   m_GameObject: {fileID: 68375978}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.525, y: 0.040000275, z: -9.62}
+  m_Locaition: {x: -3.79, y: 0.040000275, z: -9.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7519,11 +7519,6 @@ RectTransform:
   m_AnchoredPosition: {x: 824, y: 428.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &482644346 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1467574492290721427, guid: ef9aca9519bf9ab4892c62310f7d3176, type: 3}
-  m_PrefabInstance: {fileID: 5974114452862930252}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &491636206
 GameObject:
   m_ObjectHideFlags: 0
@@ -10369,7 +10364,7 @@ Transform:
   m_GameObject: {fileID: 736263511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.525, y: 0.040000275, z: -9.62}
+  m_LocalPosition: {x: -3.79, y: 0.040000275, z: -9.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14449,7 +14444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -470.10004, y: -1}
+  m_AnchoredPosition: {x: -470.1001, y: -1}
   m_SizeDelta: {x: -928.5, y: 11.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1105081916
@@ -15251,8 +15246,6 @@ MonoBehaviour:
   Nutrientes: {fileID: 1493022405}
   Nutrientes2: {fileID: 1966435546}
   GranGota1: {fileID: 882008389}
-  TriggerInicial: {fileID: 296338363}
-  TriggerMedio: {fileID: 1989913563}
 --- !u!1 &1166036837
 GameObject:
   m_ObjectHideFlags: 0
@@ -23328,38 +23321,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935936815}
   m_CullTransparentMesh: 1
---- !u!1 &1960746227 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6346800442329221290, guid: 4656f921214e67647b258f2bd22897d7, type: 3}
-  m_PrefabInstance: {fileID: 1377744803636056970}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1960746229 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5149863332184777805, guid: 4656f921214e67647b258f2bd22897d7, type: 3}
-  m_PrefabInstance: {fileID: 1377744803636056970}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1960746230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960746227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 038dbbb753993a949a000ad8db45bdf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcID: Enterocito
-  playerDialogue:
-  - Estoy que me caigo del cansancio y nada que me pagan los nutrientes esta semana
-  npcDialogue:
-  - "Si por all\xE1 llueve por ac\xE1 no escampa..."
-  startsWithPlayer: 1
-  playerBubble: {fileID: 1623706010}
-  playerText: {fileID: 201221529}
-  npcBubble: {fileID: 5974114452862930254}
-  npcText: {fileID: 5974114452862930253}
 --- !u!1 &1966435546
 GameObject:
   m_ObjectHideFlags: 0

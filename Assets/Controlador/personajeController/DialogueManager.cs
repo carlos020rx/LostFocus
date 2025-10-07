@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     private GameObject npcBubble;
     private TextMeshProUGUI npcText;
 
-    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes, Nutrientes2, GranGota1, TriggerInicial, TriggerMedio;
+    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes,Nutrientes2,GranGota1;
 
     // Indica si hay un diálogo activo
     public bool isDialogueActive { get; private set; } = false;

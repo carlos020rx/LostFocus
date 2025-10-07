@@ -57,4 +57,5 @@ public class GameManager : MonoBehaviour
                 audioSource.PlayOneShot(soundEffects[index]);
             }
         }
+    }
 }
