@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private Coroutine randomSoundCoroutine;
+
     public AudioSource audioSource;
     public AudioClip[] soundEffects;
     public float minDelay = 5f;
@@ -13,20 +16,40 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(PlayRandomSound());
+        randomSoundCoroutine = StartCoroutine(PlayRandomSound());
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (player.inicioMinijuego)
+        {
+            if (randomSoundCoroutine != null)
+            {
+                StopCoroutine(randomSoundCoroutine);
+                randomSoundCoroutine = null;
+            }
+
+            audioSource.Stop();
+            BGSound.Pause();
+
+            miniJuego1Sound.mute = false;
+            //miniJuego1Sound.time = 5f;
+
+            player.inicioMinijuego = false;
+        }
         if (player.nutrientesFin)
         {
             granGota2.SetActive(true);
-
+            popupTester.showMessage6 = true;
         }
+
+
+
+
     }
-     IEnumerator PlayRandomSound()
+    IEnumerator PlayRandomSound()
     {
         while (true)
         {

@@ -7,27 +7,34 @@ public class PopupTester : MonoBehaviour
     [Header("Referencias")]
     public PopupMessage message1; // normal
     public PopupMessage message2; // palpitante
-    public PopupMessage message3; // primero en la secuencia
-    public PopupMessage message4; // primero en la secuencia
-    public PopupMessage message5; // primero en la secuencia
+    public PopupMessage message3; 
+    public PopupMessage message4; 
+    public PopupMessage message5; 
+    public PopupMessage message6; 
+    public PopupMessage message7; 
     public OverlayController overlay; // referencia al fondo oscuro
     public BlinkingPanel blinkingPanel;
-    [Header("Control único")]
-    public bool playSequence; // único booleano desde el Inspector
+    [Header("Control ï¿½nico")]
+    public bool playSequence; // ï¿½nico booleano desde el Inspector
     public bool showMessage4;
     public bool showMessage5;
     public bool blinkAutoTrigger; 
     public bool terminoMensaje1=false;
+    public bool showMessage6;
+    public bool showMessage7;
+
 
     [Header("Tiempos")]
     [SerializeField] private float msg3Lifetime = 3f;   // dura 3s
     [SerializeField] private float afterMsg3Delay = 0.5f; // espera 1s luego de desaparecer
     [SerializeField] private float groupLifetime = 5f;  // cuanto duran juntos msg1 y msg2
-    [SerializeField] private float lifetimeSeconds = 5f;  // Cuanto duran los otros mensajes
-    [SerializeField] private float blinkDurationSeconds = 5f;
+    [SerializeField] private float lifetimeSeconds = 5f;
+    [SerializeField] private float lifetimeSeconds2 = 3f;// Cuanto duran los otros mensajes
+    [SerializeField] private float blinkDurationSeconds = 15f;
 
     private bool _prevPlay;
     private bool _prev4, _prev5;
+    private bool _prev6, _prev7;
     private bool _prevBlinkAuto;
     private Coroutine _sequenceRoutine;
     public AudioSource sonidoAlerta;
@@ -42,14 +49,27 @@ public class PopupTester : MonoBehaviour
             message4?.HideAnimated();
         // Mensaje 5 
         if (showMessage5 && !_prev5)
-            message5?.Show(lifetimeSeconds, pulse: false);
+            message5?.Show(lifetimeSeconds2, pulse: false);
         else if (!showMessage5 && _prev5)
             message5?.HideAnimated();
+
+        // Mensaje 6
+        if (showMessage6 && !_prev6)
+            message6?.Show(lifetimeSeconds, pulse: false);
+        else if (!showMessage6 && _prev6)
+            message6?.HideAnimated();
+
+        // Mensaje 7
+        if (showMessage7 && !_prev7)
+            message7?.Show(lifetimeSeconds, pulse: false);
+        else if (!showMessage7 && _prev7)
+            message7?.HideAnimated();
+
 
         // Flanco de subida: inicia secuencia
         if (playSequence && !_prevPlay)
         {
-            // Por si había algo corriendo, cancelo y limpio
+            // Por si habï¿½a algo corriendo, cancelo y limpio
             StopSequenceAndHideAll();
             _sequenceRoutine = StartCoroutine(SequenceRoutine());
         }
@@ -59,13 +79,13 @@ public class PopupTester : MonoBehaviour
             StopSequenceAndHideAll();
         }
 
-        // Disparo automático del parpadeo independiente (flanco false -> true)
+        // Disparo automï¿½tico del parpadeo independiente (flanco false -> true)
         if (blinkAutoTrigger && !_prevBlinkAuto)
         {
             // Arranca parpadeo por N segundos y se apaga solo
             blinkingPanel?.StartBlink(blinkDurationSeconds);
 
-            // Opcional: autorresetear el booleano para que quede listo para el próximo disparo
+            // Opcional: autorresetear el booleano para que quede listo para el prï¿½ximo disparo
             blinkAutoTrigger = false;
         }
         _prevBlinkAuto = blinkAutoTrigger;
@@ -82,11 +102,11 @@ public class PopupTester : MonoBehaviour
             message3.Show(msg3Lifetime, pulse: false);
             sonidoAlerta.Play();
 
-            // Espera su vida útil + su animación de salida antes del delay extra
+            // Espera su vida ï¿½til + su animaciï¿½n de salida antes del delay extra
             yield return new WaitForSeconds(msg3Lifetime + message3.DisappearDuration);
         }
 
-        // 2) Delay de 1s después de que Mensaje 3 desaparece
+        // 2) Delay de 1s despuï¿½s de que Mensaje 3 desaparece
         yield return new WaitForSeconds(afterMsg3Delay);
 
         // Si en medio apagaron el booleano, no sigas
@@ -96,7 +116,7 @@ public class PopupTester : MonoBehaviour
         if (message1 != null) message1.Show(groupLifetime, pulse: false);
         if (message2 != null) message2.Show(groupLifetime, pulse: true);
 
-        // Ambos tienen el mismo lifetime, por lo que se irán EXACTAMENTE al mismo tiempo
+        // Ambos tienen el mismo lifetime, por lo que se irï¿½n EXACTAMENTE al mismo tiempo
         yield return new WaitForSeconds(groupLifetime + MaxDisappearDuration(message1, message2));
         overlay?.Hide();
 
@@ -119,7 +139,7 @@ public class PopupTester : MonoBehaviour
             StopCoroutine(_sequenceRoutine);
             _sequenceRoutine = null;
         }
-        // Oculta todo inmediatamente y cancela cualquier animación en curso
+        // Oculta todo inmediatamente y cancela cualquier animaciï¿½n en curso
         message1?.HideImmediate();
         message2?.HideImmediate();
         message3?.HideImmediate();

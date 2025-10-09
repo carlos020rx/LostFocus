@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    
 
     [Header("Ground Check")]
     public Transform groundCheck;   // Empty en los pies
@@ -52,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
     public bool nutrientesFin = false;
 
 
+
+    
 
 
     void Awake()
@@ -117,8 +120,17 @@ public class PlayerMovement : MonoBehaviour
         // Movimiento
         Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
 
-        // Animación
-        //animator.SetFloat("isMoving2", Mathf.Abs(inputX));
+            // Movimiento
+            Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
+
+            // Animación
+            //animator.SetFloat("isMoving2", Mathf.Abs(inputX));
+
+            // Voltear sprite
+            voltear();
+            //}
+            inicioMinijuego = true;
+        }
 
         // Voltear sprite
         voltear();
@@ -166,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
         if (nutrientes == 5)
         {
             nutrientesFin = true;
+
         }
     
     }
@@ -206,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Lo agarraste");
             Destroy(collision.gameObject);
             audRecolectado.Play();
-
+            popupTester.showMessage7 = true;
         }
     }
 }

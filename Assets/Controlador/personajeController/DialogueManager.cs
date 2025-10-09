@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     private GameObject npcBubble;
     private TextMeshProUGUI npcText;
 
-    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes, Nutrientes2, GranGota1, TriggerInicial, TriggerMedio;
+    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes,Nutrientes2,GranGota1, GranGota2,TriggerInicial, TriggerMedio;
 
     // Indica si hay un diálogo activo
     public bool isDialogueActive { get; private set; } = false;
@@ -98,6 +98,9 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
 
         popupTester.playSequence = true;
+        GranGota2.SetActive(false);
+        
+
     }
     IEnumerator EmpezarDialogo(string[] playerDialogue, string[] npcDialogue,
     GameObject playerBubbleObj, TextMeshProUGUI playerTextObj,
