@@ -7,9 +7,11 @@ public class PopupTester : MonoBehaviour
     [Header("Referencias")]
     public PopupMessage message1; // normal
     public PopupMessage message2; // palpitante
-    public PopupMessage message3; // primero en la secuencia
-    public PopupMessage message4; // primero en la secuencia
-    public PopupMessage message5; // primero en la secuencia
+    public PopupMessage message3; 
+    public PopupMessage message4; 
+    public PopupMessage message5; 
+    public PopupMessage message6; 
+    public PopupMessage message7; 
     public OverlayController overlay; // referencia al fondo oscuro
     public BlinkingPanel blinkingPanel;
     [Header("Control único")]
@@ -18,16 +20,21 @@ public class PopupTester : MonoBehaviour
     public bool showMessage5;
     public bool blinkAutoTrigger; 
     public bool terminoMensaje1=false;
+    public bool showMessage6;
+    public bool showMessage7;
+
 
     [Header("Tiempos")]
     [SerializeField] private float msg3Lifetime = 3f;   // dura 3s
     [SerializeField] private float afterMsg3Delay = 0.5f; // espera 1s luego de desaparecer
     [SerializeField] private float groupLifetime = 5f;  // cuanto duran juntos msg1 y msg2
-    [SerializeField] private float lifetimeSeconds = 5f;  // Cuanto duran los otros mensajes
-    [SerializeField] private float blinkDurationSeconds = 5f;
+    [SerializeField] private float lifetimeSeconds = 5f;
+    [SerializeField] private float lifetimeSeconds2 = 3f;// Cuanto duran los otros mensajes
+    [SerializeField] private float blinkDurationSeconds = 15f;
 
     private bool _prevPlay;
     private bool _prev4, _prev5;
+    private bool _prev6, _prev7;
     private bool _prevBlinkAuto;
     private Coroutine _sequenceRoutine;
     public AudioSource sonidoAlerta;
@@ -42,9 +49,22 @@ public class PopupTester : MonoBehaviour
             message4?.HideAnimated();
         // Mensaje 5 
         if (showMessage5 && !_prev5)
-            message5?.Show(lifetimeSeconds, pulse: false);
+            message5?.Show(lifetimeSeconds2, pulse: false);
         else if (!showMessage5 && _prev5)
             message5?.HideAnimated();
+
+        // Mensaje 6
+        if (showMessage6 && !_prev6)
+            message6?.Show(lifetimeSeconds, pulse: false);
+        else if (!showMessage6 && _prev6)
+            message6?.HideAnimated();
+
+        // Mensaje 7
+        if (showMessage7 && !_prev7)
+            message7?.Show(lifetimeSeconds, pulse: false);
+        else if (!showMessage7 && _prev7)
+            message7?.HideAnimated();
+
 
         // Flanco de subida: inicia secuencia
         if (playSequence && !_prevPlay)
@@ -75,6 +95,8 @@ public class PopupTester : MonoBehaviour
         _prevPlay = playSequence;
         _prev4 = showMessage4;
         _prev5 = showMessage5;
+        _prev6 = showMessage6;
+        _prev7 = showMessage7;
 
     }
 
