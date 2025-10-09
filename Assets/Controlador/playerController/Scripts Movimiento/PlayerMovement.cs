@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    
 
     [Header("Ground Check")]
     public Transform groundCheck;   // Empty en los pies
@@ -178,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
         if (nutrientes == 5)
         {
             nutrientesFin = true;
+
         }
     
     }
@@ -218,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Lo agarraste");
             Destroy(collision.gameObject);
             audRecolectado.Play();
-
+            popupTester.showMessage7 = true;
         }
     }
 }

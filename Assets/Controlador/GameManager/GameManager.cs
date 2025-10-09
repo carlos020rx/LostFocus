@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public float maxDelay = 10f;
     public PlayerMovement player;
     public GameObject granGota2;
+    public PopupTester popupTester;
     //private int contador = 1;
 
     public GameObject btnIz, btnDer, btnSalto;
@@ -44,6 +45,11 @@ public class GameManager : MonoBehaviour
             //miniJuego1Sound.time = 5f;
 
             player.inicioMinijuego = false;
+        }
+        if (player.nutrientesFin)
+        {
+            granGota2.SetActive(true);
+            popupTester.showMessage6 = true;
         }
 
 

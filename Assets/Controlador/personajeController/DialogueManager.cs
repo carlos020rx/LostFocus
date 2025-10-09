@@ -99,7 +99,7 @@ public class DialogueManager : MonoBehaviour
 
         popupTester.playSequence = true;
         GranGota2.SetActive(false);
-        Debug.Log("Aquitoy");
+        
 
     }
     IEnumerator EmpezarDialogo(string[] playerDialogue, string[] npcDialogue,
