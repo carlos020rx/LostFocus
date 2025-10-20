@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private bool mirandoDerecha = true;
     private float x;
     public float velocidad = 5f;
-
+    private float contador=3;
     private float inputX;
 
 
@@ -176,10 +176,10 @@ public class PlayerMovement : MonoBehaviour
                 footstepsAudio.Stop();
         }
 
-        if (nutrientes == 5)
+        if (nutrientes == 5 && contador==3)
         {
             nutrientesFin = true;
-
+            contador = 2;
         }
     
     }
