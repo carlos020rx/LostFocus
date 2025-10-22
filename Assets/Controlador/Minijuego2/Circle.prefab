@@ -136,9 +136,10 @@ MonoBehaviour:
   endScale: 0.1
   perfectStart: 0.872
   perfectEnd: 1
-  enableMovement: 1
+  enableMovement: 0
   moveRadius: 100
-  moveSpeed: 3
+  moveSpeed: 5
+  fadeSpeed: 1.5
   fallo: {fileID: 4808491118104787505}
   acierto: {fileID: 2279767151811567125}
 --- !u!1 &2065792844131962954

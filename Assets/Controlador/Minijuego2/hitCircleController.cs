@@ -20,9 +20,10 @@ public class HitCircleController : MonoBehaviour
     [Range(0f, 1f)] public float perfectEnd = 0.95f;
 
     [Header("Ajustes de Dificultad")]
-    public bool enableMovement = false;  // ✅ Activa movimiento de toda la instancia
+    public bool enableMovement = false;   // ✅ Activa movimiento y desvanecimiento
     public float moveRadius = 100f;
     public float moveSpeed = 1.5f;
+    public float fadeSpeed = 2.5f;          // ✅ Velocidad de desvanecimiento
 
     private float timer;
     private bool wasPressed = false;
@@ -30,9 +31,9 @@ public class HitCircleController : MonoBehaviour
     public GameObject fallo, acierto;
 
     private Image outerCircleImage;
+    private Image innerCircleImage;
     private Color originalColor;
 
-    // Movimiento
     private RectTransform rectTransform;
     private Vector2 basePosition;
     private Vector2 randomOffset;
@@ -42,15 +43,16 @@ public class HitCircleController : MonoBehaviour
         timer = 0f;
         feedbackText.text = "";
 
-        rectTransform = GetComponent<RectTransform>(); // ✅ Se moverá este transform
+        rectTransform = GetComponent<RectTransform>();
         outerCircle.localScale = Vector3.one * startScale;
 
-        // Guardar color original
+        // Guardar colores originales
         outerCircleImage = outerCircle.GetComponent<Image>();
+        innerCircleImage = innerCircle.GetComponent<Image>();
+
         if (outerCircleImage != null)
             originalColor = outerCircleImage.color;
 
-        // Guardar posición inicial de todo el prefab
         basePosition = rectTransform.anchoredPosition;
         randomOffset = GetRandomOffset();
     }
@@ -64,10 +66,11 @@ public class HitCircleController : MonoBehaviour
         float currentScale = Mathf.Lerp(startScale, endScale, progress);
         outerCircle.localScale = Vector3.one * currentScale;
 
-        // ✅ Movimiento del prefab completo
+        // ✅ Movimiento y desvanecimiento solo si está activado
         if (enableMovement)
         {
             MoveWholePrefab();
+            FadeInnerCircle();
         }
 
         if (timer >= shrinkDuration && !wasPressed)
@@ -83,11 +86,20 @@ public class HitCircleController : MonoBehaviour
         Vector2 target = basePosition + randomOffset;
         rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, target, Time.deltaTime * moveSpeed);
 
-        // Cuando llega al destino, genera otro punto
         if (Vector2.Distance(rectTransform.anchoredPosition, target) < 5f)
         {
             randomOffset = GetRandomOffset();
         }
+    }
+
+    void FadeInnerCircle()
+    {
+        if (innerCircleImage == null) return;
+
+        Color currentColor = innerCircleImage.color;
+        // Gradualmente baja el alpha (transparencia)
+        currentColor.a = Mathf.Lerp(0.5f, 0.01f, timer / shrinkDuration * fadeSpeed);
+        innerCircleImage.color = currentColor;
     }
 
     Vector2 GetRandomOffset()

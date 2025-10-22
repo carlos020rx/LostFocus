@@ -11,13 +11,18 @@ public class Spawner : MonoBehaviour
 
     private float timer;
 
+    public bool minijuego2;
+
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        if (minijuego2)
         {
-            SpawnHitCircle();
-            timer = 0f;
+            timer += Time.deltaTime;
+            if (timer >= spawnInterval)
+            {
+                SpawnHitCircle();
+                timer = 0f;
+            }
         }
     }
 
