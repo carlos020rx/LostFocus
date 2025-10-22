@@ -20,7 +20,7 @@ public class HitCircleController : MonoBehaviour
     [Range(0f, 1f)] public float perfectEnd = 0.95f;
 
     [Header("Ajustes de Dificultad")]
-    public bool enableMovement = false;   // ✅ Activa movimiento y desvanecimiento
+    public bool enableMovement = false;   // ✅ Activa movimiento y desvanecimiento. Activa la forma dificil, 
     public float moveRadius = 100f;
     public float moveSpeed = 1.5f;
     public float fadeSpeed = 2.5f;          // ✅ Velocidad de desvanecimiento

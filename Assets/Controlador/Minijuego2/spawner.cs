@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
 
     private float timer;
 
-    public bool minijuego2;
+    public bool minijuego2 ; //Es el booleano que activa el minijuego, se podria llamar desde el gameManager 
 
     void Update()
     {
