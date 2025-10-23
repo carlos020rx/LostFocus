@@ -20,17 +20,23 @@ public class EnemyAttackSimulator : MonoBehaviour
 
     void Start()
     {
+        //if (enableSimulation)
+        //StartCoroutine(EnemyAttackLoop());
+    }
+    
+    public void atacar()
+    {
         if (enableSimulation)
-            StartCoroutine(EnemyAttackLoop());
+        StartCoroutine(EnemyAttackLoop());
     }
 
     IEnumerator EnemyAttackLoop()
     {
-        while (enableSimulation)
-        {
+        //while (enableSimulation)
+        //{
             SpawnEnemy();
             yield return new WaitForSeconds(attackInterval);
-        }
+        //}
     }
 
     void SpawnEnemy()
@@ -83,27 +89,38 @@ public class EnemyAttackSimulator : MonoBehaviour
 
     IEnumerator DodgeAnimation()
     {
-        playerDodging = true;
-        Vector3 originalPos = player.position;
-        Vector3 dodgePos = originalPos + new Vector3(0.5f, 0, 0); // Se mueve ligeramente a la derecha
+    playerDodging = true;
 
-        float t = 0f;
-        while (t < 0.2f)
-        {
-            player.position = Vector3.Lerp(originalPos, dodgePos, t / 0.2f);
-            t += Time.deltaTime;
-            yield return null;
-        }
+    Vector3 originalPos = player.position;
 
-        // Regresa
-        t = 0f;
-        while (t < 0.2f)
-        {
-            player.position = Vector3.Lerp(dodgePos, originalPos, t / 0.2f);
-            t += Time.deltaTime;
-            yield return null;
-        }
+    // Límite horizontal del movimiento (ajústalos a tu escenario)
+    float leftLimit = -3f;
+    float rightLimit = 3f;
 
-        playerDodging = false;
+    // Elegir dirección aleatoria: -1 (izquierda) o +1 (derecha)
+    int direction = Random.value < 0.5f ? -1 : 1;
+
+    // Distancia de desplazamiento
+    float dodgeDistance = 0.5f;
+
+    // Calcular nueva posición dentro de los límites
+    float targetX = Mathf.Clamp(originalPos.x + (dodgeDistance * direction), leftLimit, rightLimit);
+    Vector3 dodgePos = new Vector3(targetX, originalPos.y, originalPos.z);
+
+    // Movimiento suave
+    float duration = 0.2f;
+    float t = 0f;
+
+    while (t < duration)
+    {
+        player.position = Vector3.Lerp(originalPos, dodgePos, t / duration);
+        t += Time.deltaTime;
+        yield return null;
+    }
+
+    // Aseguramos posición final exacta
+    player.position = dodgePos;
+
+    playerDodging = false;
     }
 }

@@ -2690,7 +2690,7 @@ Transform:
   m_GameObject: {fileID: 1248975432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.525, y: -0.2, z: -0}
+  m_LocalPosition: {x: -0.318, y: -0.732, z: -0}
   m_LocalScale: {x: 1.5330695, y: 1.5330695, z: 1.5330695}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3366,7 +3366,7 @@ MonoBehaviour:
   hitCirclePrefab: {fileID: 2014961120237260770, guid: 016c6ad69e63cce4b8e44e0f59b67519, type: 3}
   spawnArea: {fileID: 1259877842}
   spawnInterval: 1.2
-  minijuego2: 0
+  minijuego2: 1
 --- !u!1 &2107459341
 GameObject:
   m_ObjectHideFlags: 0

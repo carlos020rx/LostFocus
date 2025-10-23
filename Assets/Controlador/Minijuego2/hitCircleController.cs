@@ -26,6 +26,7 @@ public class HitCircleController : MonoBehaviour
     public float fadeSpeed = 2.5f;          // ✅ Velocidad de desvanecimiento
 
     private float timer;
+    private int contador=1;
     private bool wasPressed = false;
 
     public GameObject fallo, acierto;
@@ -75,6 +76,11 @@ public class HitCircleController : MonoBehaviour
 
         if (timer >= shrinkDuration && !wasPressed)
         {
+            if (contador == 1)
+            {
+                contador = 2;
+                FindObjectOfType<EnemyAttackSimulator>().atacar();
+            }
             ShowFeedback("Fallo!", Color.red);
             fallo.SetActive(true);
             CambiarColor(Color.red);
@@ -123,6 +129,7 @@ public class HitCircleController : MonoBehaviour
         }
         else
         {
+            FindObjectOfType<EnemyAttackSimulator>().atacar();
             ShowFeedback("Fallo!", Color.red);
             fallo.SetActive(true);
             CambiarColor(Color.red);
