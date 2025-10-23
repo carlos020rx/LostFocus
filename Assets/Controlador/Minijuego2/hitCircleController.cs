@@ -119,6 +119,7 @@ public class HitCircleController : MonoBehaviour
             ShowFeedback("Perfecto!", Color.green);
             acierto.SetActive(true);
             CambiarColor(Color.green);
+            FindObjectOfType<EnemyAttackSimulator>().PlayerDodge();
         }
         else
         {
