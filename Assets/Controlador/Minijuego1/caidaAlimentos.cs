@@ -11,6 +11,9 @@ public class caidaAlimentos : MonoBehaviour
     [SerializeField] float maxTras;
     public PopupTester popupTester;
     private int contador = 1;
+    private int contador2 = 1;
+    public AudioSource timerAudio;
+    public AudioSource timerAudiox2;
 
     public GameObject limIzq, limDer;
 
@@ -51,7 +54,7 @@ public class caidaAlimentos : MonoBehaviour
     {
         if (popupTester.terminoMensaje1 == true && contador==1)
         {
-
+            popupTester.showMessage4=true;
             StartCoroutine(fruitsSpawn());
             contador = 2;
             ponerLimites();
@@ -66,23 +69,31 @@ public class caidaAlimentos : MonoBehaviour
             temporizador.SetActive(true);
             if (timer > 0)
             {
-
+                timerAudio.Play();
                 //Recoge el tiempo con el que trabaja el computador(?
                 timer -= Time.deltaTime;
                 //Vamos actualizando el texto en pantalla
                 txtTiempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
             } 
             
-            if (timer > 0 && timer <= 15) 
+            if (timer > 0 && timer <= 15 && contador2==1) 
             {
-                //Aquí lo del aumento de dificultad
+                timerAudio.Stop();
+                timerAudiox2.Play();
                 popupTester.blinkAutoTrigger = true;
+                contador2 = 2;
+                popupTester.showMessage5 = true;
+                    
+
+                //Aquí lo del aumento de dificultad
+                
             }
             else if (timer <= 0)
             {
                 //Aquí lo que se hace cuando se acaba el tiempo (gana)
                 enMinijuego1 = false;
                 temporizador.SetActive(false);
+                timerAudiox2.Stop();
 
 
             }

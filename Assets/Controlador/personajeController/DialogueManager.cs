@@ -77,6 +77,7 @@ public class DialogueManager : MonoBehaviour
         {
             Nutrientes.SetActive(false);
             StartCoroutine(Minijuego1Mensaje());
+            StartCoroutine(desaparecerGranGota2());
 
         }
 
@@ -98,8 +99,13 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         popupTester.playSequence = true;
+        
+
+    }
+        IEnumerator desaparecerGranGota2() {
+        yield return new WaitForSeconds(2f);
         GranGota2.SetActive(false);
-        Debug.Log("Aquitoy");
+        
 
     }
     IEnumerator EmpezarDialogo(string[] playerDialogue, string[] npcDialogue,
@@ -132,7 +138,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator desaparecerGranGota()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         GranGota1.SetActive(false);
 
 

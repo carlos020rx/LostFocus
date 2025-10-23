@@ -18,6 +18,6 @@ public class SceneneManager : MonoBehaviour
     }
 
     public void iniciarJuego(){
-        SceneManager.LoadScene("JugarP2");
+        SceneManager.LoadScene("Jugar_Carlitos");
     }
 }

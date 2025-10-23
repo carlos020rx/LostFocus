@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private bool mirandoDerecha = true;
     private float x;
     public float velocidad = 5f;
-
+    private float contador=3;
     private float inputX;
 
 
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    
 
     [Header("Ground Check")]
     public Transform groundCheck;   // Empty en los pies
@@ -175,9 +176,10 @@ public class PlayerMovement : MonoBehaviour
                 footstepsAudio.Stop();
         }
 
-        if (nutrientes == 5)
+        if (nutrientes == 5 && contador==3)
         {
             nutrientesFin = true;
+            contador = 2;
         }
     
     }
@@ -218,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Lo agarraste");
             Destroy(collision.gameObject);
             audRecolectado.Play();
-
+            popupTester.showMessage7 = true;
         }
     }
 }
