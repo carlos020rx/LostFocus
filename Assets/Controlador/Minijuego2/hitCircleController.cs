@@ -11,7 +11,7 @@ public class HitCircleController : MonoBehaviour
     public TextMeshProUGUI feedbackText;
 
     [Header("Ajustes")]
-    public float shrinkDuration = 2f;
+    public float shrinkDuration = 1.5f;
     public float startScale = 2f;
     public float endScale = 1f;
 
@@ -39,9 +39,11 @@ public class HitCircleController : MonoBehaviour
     private Vector2 basePosition;
     private Vector2 randomOffset;
 
+
     void Start()
     {
         timer = 0f;
+        shrinkDuration = 1.5f;
         feedbackText.text = "";
 
         rectTransform = GetComponent<RectTransform>();
@@ -56,6 +58,8 @@ public class HitCircleController : MonoBehaviour
 
         basePosition = rectTransform.anchoredPosition;
         randomOffset = GetRandomOffset();
+
+        //spawner = spawner.GetComponent<Spawner>();
     }
 
     void Update()
@@ -74,18 +78,31 @@ public class HitCircleController : MonoBehaviour
             FadeInnerCircle();
         }
 
-        if (timer >= shrinkDuration && !wasPressed)
+        if (!wasPressed)
         {
-            if (contador == 1)
+            bool circleClosed = outerCircle.localScale.x <= endScale + 0.01f; // pequeño margen de error
+
+            if (timer >= shrinkDuration && circleClosed)
             {
-                contador = 2;
-                FindObjectOfType<EnemyAttackSimulator>().atacar();
+                if (contador == 1)
+                {
+                    FindObjectOfType<EnemyAttackSimulator>().atacar();
+                    contador = 2;
+                    Debug.Log(timer);
+                    FindObjectOfType<Spawner>().QuitarVida();
+
+                }
+
+                ShowFeedback("Fallo!", Color.red);
+                fallo.SetActive(true);
+                CambiarColor(Color.red);
+
+                
             }
-            ShowFeedback("Fallo!", Color.red);
-            fallo.SetActive(true);
-            CambiarColor(Color.red);
         }
+
     }
+
 
     void MoveWholePrefab()
     {
@@ -131,6 +148,7 @@ public class HitCircleController : MonoBehaviour
         {
             FindObjectOfType<EnemyAttackSimulator>().atacar();
             ShowFeedback("Fallo!", Color.red);
+            FindObjectOfType<Spawner>().vida--;
             fallo.SetActive(true);
             CambiarColor(Color.red);
         }

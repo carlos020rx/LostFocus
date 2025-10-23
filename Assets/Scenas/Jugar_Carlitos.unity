@@ -13820,6 +13820,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1343477956}
+  menuOpciones: {fileID: 0}
+  myMixer: {fileID: 0}
+  musicSlider: {fileID: 0}
+  effectsSlider: {fileID: 0}
+  musicaIMG: {fileID: 0}
+  noMusicaIMG: {fileID: 0}
+  effectsIMG: {fileID: 0}
+  noEffectsIMG: {fileID: 0}
 --- !u!4 &966052909
 Transform:
   m_ObjectHideFlags: 0
