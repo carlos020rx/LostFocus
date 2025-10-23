@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
@@ -11,7 +14,17 @@ public class Spawner : MonoBehaviour
 
     private float timer;
 
-    public bool minijuego2 ; //Es el booleano que activa el minijuego, se podria llamar desde el gameManager 
+    public bool minijuego2; //Es el booleano que activa el minijuego, se podria llamar desde el gameManager 
+
+    public int vida;
+    public Slider slider;
+
+
+    private void Start()
+    {
+        vida = 3;
+        slider.maxValue = vida;
+    }
 
     void Update()
     {
@@ -24,6 +37,20 @@ public class Spawner : MonoBehaviour
                 timer = 0f;
             }
         }
+
+        slider.value = (float)vida;
+    }
+
+    public void QuitarVida()
+    {
+        StartCoroutine(MenosVida());
+    }
+
+    IEnumerator MenosVida()
+    {
+       
+        yield return new WaitForSeconds(1.3f);
+        vida--;
     }
 
     void SpawnHitCircle()
