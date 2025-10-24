@@ -5,6 +5,8 @@ using System.Collections;
 
 public class HitCircleController : MonoBehaviour
 {
+    public static bool modoDificilGlobal = false;
+
     [Header("Referencias")]
     public RectTransform outerCircle;
     public RectTransform innerCircle;
@@ -59,28 +61,30 @@ public class HitCircleController : MonoBehaviour
         basePosition = rectTransform.anchoredPosition;
         randomOffset = GetRandomOffset();
 
-        //spawner = spawner.GetComponent<Spawner>();
     }
 
     void Update()
     {
-        if (outerCircle == null) return;
+        Spawner spawner = FindObjectOfType<Spawner>();
 
         timer += Time.deltaTime;
         float progress = timer / shrinkDuration;
         float currentScale = Mathf.Lerp(startScale, endScale, progress);
         outerCircle.localScale = Vector3.one * currentScale;
 
-        // ✅ Movimiento y desvanecimiento solo si está activado
+        if (modoDificilGlobal)
+            enableMovement = true;
+
         if (enableMovement)
         {
             MoveWholePrefab();
             FadeInnerCircle();
         }
 
+
         if (!wasPressed)
         {
-            bool circleClosed = outerCircle.localScale.x <= endScale + 0.01f; // pequeño margen de error
+            bool circleClosed = outerCircle.localScale.x <= endScale + 0.01f;
 
             if (timer >= shrinkDuration && circleClosed)
             {
@@ -88,16 +92,12 @@ public class HitCircleController : MonoBehaviour
                 {
                     FindObjectOfType<EnemyAttackSimulator>().atacar();
                     contador = 2;
-                    Debug.Log(timer);
-                    FindObjectOfType<Spawner>().QuitarVida();
-
+                    spawner.QuitarVida();
                 }
 
                 ShowFeedback("Fallo!", Color.red);
                 fallo.SetActive(true);
                 CambiarColor(Color.red);
-
-                
             }
         }
 
