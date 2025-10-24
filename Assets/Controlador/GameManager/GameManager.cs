@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     public AudioSource BGSound, miniJuego1Sound;
 
+    private  int contador = 1;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +53,8 @@ public class GameManager : MonoBehaviour
         {
             granGota2.SetActive(true);
             popupTester.showMessage6 = true;
+            contador = 2;
+            player.nutrientesFin = false;
         }
 
 

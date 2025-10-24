@@ -910,10 +910,13 @@ MonoBehaviour:
     m_Bits: 8
   footstepsAudio: {fileID: 0}
   jump: {fileID: 0}
+  audRecolectado: {fileID: 0}
   textoNutriente: {fileID: 0}
   nutrienteSlider: {fileID: 0}
   inicioMinijuego: 0
   nutrientesFin: 0
+  popupTester: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!70 &1408649047
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
