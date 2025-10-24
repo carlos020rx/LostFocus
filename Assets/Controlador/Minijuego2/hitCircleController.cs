@@ -5,13 +5,15 @@ using System.Collections;
 
 public class HitCircleController : MonoBehaviour
 {
+    public static bool modoDificilGlobal = false;
+
     [Header("Referencias")]
     public RectTransform outerCircle;
     public RectTransform innerCircle;
     public TextMeshProUGUI feedbackText;
 
     [Header("Ajustes")]
-    public float shrinkDuration = 2f;
+    public float shrinkDuration = 1.5f;
     public float startScale = 2f;
     public float endScale = 1f;
 
@@ -39,9 +41,11 @@ public class HitCircleController : MonoBehaviour
     private Vector2 basePosition;
     private Vector2 randomOffset;
 
+
     void Start()
     {
         timer = 0f;
+        shrinkDuration = 1.5f;
         feedbackText.text = "";
 
         rectTransform = GetComponent<RectTransform>();
@@ -56,36 +60,49 @@ public class HitCircleController : MonoBehaviour
 
         basePosition = rectTransform.anchoredPosition;
         randomOffset = GetRandomOffset();
+
     }
 
     void Update()
     {
-        if (outerCircle == null) return;
+        Spawner spawner = FindObjectOfType<Spawner>();
 
         timer += Time.deltaTime;
         float progress = timer / shrinkDuration;
         float currentScale = Mathf.Lerp(startScale, endScale, progress);
         outerCircle.localScale = Vector3.one * currentScale;
 
-        // ✅ Movimiento y desvanecimiento solo si está activado
+        if (modoDificilGlobal)
+            enableMovement = true;
+
         if (enableMovement)
         {
             MoveWholePrefab();
             FadeInnerCircle();
         }
 
-        if (timer >= shrinkDuration && !wasPressed)
+
+        if (!wasPressed)
         {
-            if (contador == 1)
+            bool circleClosed = outerCircle.localScale.x <= endScale + 0.01f;
+
+            if (timer >= shrinkDuration && circleClosed)
             {
-                contador = 2;
-                FindObjectOfType<EnemyAttackSimulator>().atacar();
+                if (contador == 1)
+                {
+                    FindObjectOfType<EnemyAttackSimulator>().atacar();
+                    contador = 2;
+                    spawner.QuitarVida();
+                }
+
+                ShowFeedback("Fallo!", Color.red);
+                fallo.SetActive(true);
+                CambiarColor(Color.red);
             }
-            ShowFeedback("Fallo!", Color.red);
-            fallo.SetActive(true);
-            CambiarColor(Color.red);
         }
+
     }
+
 
     void MoveWholePrefab()
     {
@@ -131,6 +148,7 @@ public class HitCircleController : MonoBehaviour
         {
             FindObjectOfType<EnemyAttackSimulator>().atacar();
             ShowFeedback("Fallo!", Color.red);
+            FindObjectOfType<Spawner>().vida--;
             fallo.SetActive(true);
             CambiarColor(Color.red);
         }
