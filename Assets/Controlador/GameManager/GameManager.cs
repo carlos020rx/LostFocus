@@ -12,15 +12,19 @@ public class GameManager : MonoBehaviour
     public float minDelay = 5f;
     public float maxDelay = 10f;
     public PlayerMovement player;
-    public GameObject granGota2;
+    public GameObject granGota2,granGota3;
     public PopupTester popupTester;
     //private int contador = 1;
+    public caidaAlimentos caidaAlimentos;
 
     public GameObject btnIz, btnDer, btnSalto;
 
     public AudioSource BGSound, miniJuego1Sound;
 
-    private  int contador = 1;
+    private int contador = 1;
+    
+    public Animation transition;
+
 
 
     // Start is called before the first frame update
@@ -44,7 +48,11 @@ public class GameManager : MonoBehaviour
             audioSource.Stop();
             BGSound.Pause();
 
-            miniJuego1Sound.mute = false;
+            if (!caidaAlimentos.murio && caidaAlimentos.miniJuegoFrutas == true)
+            {
+             miniJuego1Sound.mute = false;
+            }
+
             //miniJuego1Sound.time = 5f;
 
             player.inicioMinijuego = false;
@@ -57,8 +65,40 @@ public class GameManager : MonoBehaviour
             player.nutrientesFin = false;
         }
 
+        if (caidaAlimentos.murio == true)
+        {
+            miniJuego1Sound.mute = true;
+            caidaAlimentos.vida = 3;
+            caidaAlimentos.murio = false;
+            Debug.Log("murio");
+            StartCoroutine(reinicioJuego());
+
+        }
+        
+        if(caidaAlimentos.finMinijuego1 == true)
+        {
+            granGota3.SetActive(true);
+            miniJuego1Sound.mute = true;
+            BGSound.Play();
+        }
 
 
+
+
+    }
+
+    IEnumerator reinicioJuego()
+    {
+        yield return new WaitForSeconds(4f);
+        caidaAlimentos.vida = 3;
+        caidaAlimentos.murio = false;
+        transition.Play("transition_exit");
+        miniJuego1Sound.mute = false;
+        caidaAlimentos.miniJuegoFrutas = true;
+        caidaAlimentos.enMinijuego1 = true;
+        popupTester.terminoMensaje1 = true;
+        caidaAlimentos.contador = 1;
+      
 
     }
     IEnumerator PlayRandomSound()

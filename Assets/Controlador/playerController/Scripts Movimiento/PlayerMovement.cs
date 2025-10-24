@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
 
     public GameManager gameManager;
 
+    public caidaAlimentos caidaAlimentos;
+
+
     
 
 
@@ -213,6 +216,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("te mato");
             animator.SetTrigger("dano");
+            caidaAlimentos.vida--;
         }
 
         if (collision.CompareTag("coleccionable"))

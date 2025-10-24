@@ -11,7 +11,7 @@ public class ZoomCamaraController : MonoBehaviour
 
     [Header("Control")]
     public PopupTester popupTester; // referencia que ya tienes (terminoMensaje1)
-    public bool autoRevert = false; // si quieres que vuelva solo después de N segundos
+    public bool autoRevert = false; // si quieres que vuelva solo despuï¿½s de N segundos
     public float revertAfterSeconds = 3f;
 
     [Header("Priorities")]
@@ -47,16 +47,14 @@ public class ZoomCamaraController : MonoBehaviour
 
     private void Update()
     {
-        // activación única por tu PopupTester
+        // activaciï¿½n ï¿½nica por tu PopupTester
         if (popupTester.terminoMensaje1 == true)
         {
-            Debug.Log("Hola");
 
             if (contador == 1)
             {
                 contador = 2;
                 SetZoom(true);
-                Debug.Log("mmmm");
             }
             
 
