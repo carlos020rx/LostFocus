@@ -14,7 +14,7 @@ public class EnemyAttackSimulator : MonoBehaviour
     public float fadeSpeed = 2f;          // Velocidad del desvanecimiento
 
     [Header("Control de dificultad")]
-    public bool enableSimulation = true;  // Booleano para activar o desactivar el sistema (puedes probar con esto)
+    public bool enableSimulation = false;  // Booleano para activar o desactivar el sistema (puedes probar con esto)
 
     private bool playerDodging = false;
 
