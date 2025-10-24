@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class caidaAlimentos : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class caidaAlimentos : MonoBehaviour
     [SerializeField] float minTras;
     [SerializeField] float maxTras;
     public PopupTester popupTester;
-    private int contador = 1;
+    public int contador = 1;
     private int contador2 = 1;
     public AudioSource timerAudio;
     public AudioSource timerAudiox2;
@@ -24,12 +25,22 @@ public class caidaAlimentos : MonoBehaviour
     [SerializeField, Tooltip("tiempo en segundos")] private float tiempoRestante = 30f;
     public GameObject temporizador;
 
-    private bool enMinijuego1;
+    public bool enMinijuego1;
+    public bool murio,miniJuegoFrutas;
+
+    public int vida;
+    public Slider slider;
+
+    public Animation transition;
+
+    public bool finMinijuego1;
 
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        miniJuegoFrutas = true;
+        murio = false;
         limIzq.SetActive(false);
         limDer.SetActive(false);
 
@@ -37,10 +48,13 @@ public class caidaAlimentos : MonoBehaviour
         timer = tiempoRestante;
         enMinijuego1 = false;
         temporizador.SetActive(false);
+
+        vida = 3;
+        slider.maxValue = vida;
     }
-    IEnumerator fruitsSpawn()
+    public IEnumerator fruitsSpawn()
     {
-        while(true)
+        while(miniJuegoFrutas)
         {
             var wanted = Random.Range(minTras, maxTras);
             var position = new Vector3 (wanted, transform.position.y);
@@ -59,6 +73,7 @@ public class caidaAlimentos : MonoBehaviour
             contador = 2;
             ponerLimites();
             enMinijuego1 = true;
+            Debug.Log("Hola1");
         }
 
         minutos = (int)(timer / 60f);
@@ -74,31 +89,47 @@ public class caidaAlimentos : MonoBehaviour
                 timer -= Time.deltaTime;
                 //Vamos actualizando el texto en pantalla
                 txtTiempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
-            } 
-            
-            if (timer > 0 && timer <= 15 && contador2==1) 
+            }
+
+            if (timer > 0 && timer <= 15 && contador2 == 1)
             {
                 timerAudio.Stop();
                 timerAudiox2.Play();
                 popupTester.blinkAutoTrigger = true;
                 contador2 = 2;
                 popupTester.showMessage5 = true;
-                    
 
-                //Aquí lo del aumento de dificultad
-                
+
+                //Aquï¿½ lo del aumento de dificultad
+
             }
             else if (timer <= 0)
             {
-                //Aquí lo que se hace cuando se acaba el tiempo (gana)
+                //Aquï¿½ lo que se hace cuando se acaba el tiempo (gana)
+                timerAudio.Stop();
+                timerAudiox2.Stop();
                 enMinijuego1 = false;
                 temporizador.SetActive(false);
                 timerAudiox2.Stop();
+                miniJuegoFrutas = false;
+                finMinijuego1 = true;
+                quitarLimites();
 
 
             }
         }
-       
+
+        slider.value = (float)vida;
+
+        if (vida == 0  && murio == false)
+        {
+            transition.Play();
+            murio = true;
+            enMinijuego1 = false;
+            timer = 30f;
+            miniJuegoFrutas = false;
+
+        }
 
     }
 
