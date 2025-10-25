@@ -32,6 +32,9 @@ public class caidaAlimentos : MonoBehaviour
     public Slider slider;
 
     public Animation transition;
+    public GameObject panelTransition;
+
+    public BlinkingPanel blinkingPanel;
 
     public bool finMinijuego1;
 
@@ -51,6 +54,7 @@ public class caidaAlimentos : MonoBehaviour
 
         vida = 3;
         slider.maxValue = vida;
+        panelTransition.SetActive(false);
     }
     public IEnumerator fruitsSpawn()
     {
@@ -91,11 +95,18 @@ public class caidaAlimentos : MonoBehaviour
                 txtTiempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
             }
 
+            if(timer > 0 && timer <= 15 && contador2 == 3)
+            {
+                blinkingPanel.StartBlink(15f);
+                contador2 = 4;
+            }
+
             if (timer > 0 && timer <= 15 && contador2 == 1)
             {
                 timerAudio.Stop();
                 timerAudiox2.Play();
-                popupTester.blinkAutoTrigger = true;
+                //popupTester.blinkAutoTrigger = true;
+                blinkingPanel.StartBlink();
                 contador2 = 2;
                 popupTester.showMessage5 = true;
 
@@ -123,11 +134,13 @@ public class caidaAlimentos : MonoBehaviour
 
         if (vida == 0  && murio == false)
         {
+            panelTransition.SetActive(true);
             transition.Play();
             murio = true;
             enMinijuego1 = false;
             timer = 30f;
             miniJuegoFrutas = false;
+            contador2 = 3;
 
         }
 

@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
 
     public caidaAlimentos caidaAlimentos;
 
+    public DialogueManager dialogueManager;
+
 
     
 
@@ -137,6 +139,15 @@ public class PlayerMovement : MonoBehaviour
             voltear();
             //}
             inicioMinijuego = true;
+        }
+
+        else if (dialogueManager.isDialogueActive)
+        {
+            gameManager.desactivarBotones();
+        }
+        else
+        {
+            gameManager.activarBotones();
         }
 
 

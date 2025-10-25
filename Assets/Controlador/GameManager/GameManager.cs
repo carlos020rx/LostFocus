@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     
     public Animation transition;
 
+    public BlinkingPanel blinkingPanel;
+
 
 
     // Start is called before the first frame update
@@ -70,21 +72,21 @@ public class GameManager : MonoBehaviour
             miniJuego1Sound.mute = true;
             caidaAlimentos.vida = 3;
             caidaAlimentos.murio = false;
-            Debug.Log("murio");
+            blinkingPanel.StopBlink();
+            //popupTester.blinkAutoTrigger = false;
             StartCoroutine(reinicioJuego());
 
         }
         
         if(caidaAlimentos.finMinijuego1 == true)
         {
+            popupTester.terminoMensaje1 = false;
             granGota3.SetActive(true);
+            popupTester.blinkAutoTrigger = false;
+            //activarBotones();
             miniJuego1Sound.mute = true;
-            BGSound.Play();
+            BGSound.Play();            
         }
-
-
-
-
     }
 
     IEnumerator reinicioJuego()

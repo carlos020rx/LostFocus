@@ -45,7 +45,6 @@ public class NPCDialogue : MonoBehaviour
         {
             //StartCoroutine(MostrarSig());
             FindObjectOfType<DialogueManager>().DisplayNextLine();
-            Debug.Log("Q");
 
         }
     }
@@ -55,7 +54,6 @@ public class NPCDialogue : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInRange = true;
-            Debug.Log("Jugador entró en rango del NPC");
         }
     }
 
@@ -70,9 +68,7 @@ public class NPCDialogue : MonoBehaviour
 
     IEnumerator MostrarSig()
     {
-        Debug.Log("Inicio de la coroutine");
         yield return new WaitForSeconds(1f);
         //FindObjectOfType<DialogueManager>().DisplayNextLine();
-        Debug.Log("Han pasado 2 segundos");
     }
 }
