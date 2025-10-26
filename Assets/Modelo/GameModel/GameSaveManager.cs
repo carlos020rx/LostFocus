@@ -17,9 +17,8 @@ public class GameSaveManager : MonoBehaviour
     {
         SaveGame();
         Debug.Log("Juego guardado. Saliendo...");
+        Application.Quit();
 
-        // Aquí puedes cambiar de escena, por ejemplo al menú principal:
-        //SceneManager.LoadScene("Menu");
     }
 
     public void SaveGame()

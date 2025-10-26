@@ -106,7 +106,7 @@ public class caidaAlimentos : MonoBehaviour
                 timerAudio.Stop();
                 timerAudiox2.Play();
                 //popupTester.blinkAutoTrigger = true;
-                blinkingPanel.StartBlink();
+                blinkingPanel.StartBlink(15f);
                 contador2 = 2;
                 popupTester.showMessage5 = true;
 
