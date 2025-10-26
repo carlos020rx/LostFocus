@@ -21,7 +21,9 @@ public class DialogueManager : MonoBehaviour
     private GameObject npcBubble;
     private TextMeshProUGUI npcText;
 
-    public GameObject btnMov1, btnMov2, btnSalto, Nutrientes,Nutrientes2,GranGota1, GranGota2,TriggerInicial, TriggerMedio;
+    public GameObject btnMov1, btnMov2, btnSalto;
+    public GameObject Nutrientes,Nutrientes2,GranGota1, GranGota2,TriggerInicial, TriggerMedio;
+    public GameManager gameManager;
 
     // Indica si hay un diálogo activo
     public bool isDialogueActive { get; private set; } = false;
@@ -41,9 +43,7 @@ public class DialogueManager : MonoBehaviour
         bool startsWithPlayer)
     {
         currentNPCID = npcID;
-        btnMov1.SetActive(false);
-        btnMov2.SetActive(false);
-        btnSalto.SetActive(false);
+        gameManager.desactivarBotones();
 
         StartCoroutine(EmpezarDialogo(playerDialogue, npcDialogue,
         playerBubbleObj, playerTextObj, npcBubbleObj, npcTextObj, startsWithPlayer));
@@ -63,10 +63,7 @@ public class DialogueManager : MonoBehaviour
         if (npcBubble != null) npcBubble.SetActive(false);
 
         isDialogueActive = false;
-        btnMov1.SetActive(true);
-        btnMov2.SetActive(true);
-        btnSalto.SetActive(true);
-        Debug.Log("Diálogo terminado");
+        gameManager.activarBotones();
         if (currentNPCID == "GranGota1")
         {
             Nutrientes.SetActive(true);
@@ -78,6 +75,12 @@ public class DialogueManager : MonoBehaviour
             Nutrientes.SetActive(false);
             StartCoroutine(Minijuego1Mensaje());
             StartCoroutine(desaparecerGranGota2());
+
+        }
+
+        if (currentNPCID == "GranGota3")
+        {
+            StartCoroutine(sigNivel());
 
         }
 
@@ -102,12 +105,18 @@ public class DialogueManager : MonoBehaviour
         
 
     }
-        IEnumerator desaparecerGranGota2() {
-        yield return new WaitForSeconds(2f);
-        GranGota2.SetActive(false);
-        
-
+    IEnumerator desaparecerGranGota2() {
+    yield return new WaitForSeconds(2f);
+    GranGota2.SetActive(false);
     }
+
+    IEnumerator sigNivel()
+    {
+        yield return new WaitForSeconds(2f);
+        Debug.Log("Ir a cerebro");
+    }
+
+
     IEnumerator EmpezarDialogo(string[] playerDialogue, string[] npcDialogue,
     GameObject playerBubbleObj, TextMeshProUGUI playerTextObj,
     GameObject npcBubbleObj, TextMeshProUGUI npcTextObj,

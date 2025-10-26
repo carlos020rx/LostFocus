@@ -57,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
 
     public GameManager gameManager;
 
+    public caidaAlimentos caidaAlimentos;
+
+    public DialogueManager dialogueManager;
+
+
     
 
 
@@ -136,6 +141,15 @@ public class PlayerMovement : MonoBehaviour
             inicioMinijuego = true;
         }
 
+        else if (dialogueManager.isDialogueActive)
+        {
+            gameManager.desactivarBotones();
+        }
+        else
+        {
+            gameManager.activarBotones();
+        }
+
 
 
         // --- Movimiento horizontal ---
@@ -213,6 +227,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("te mato");
             animator.SetTrigger("dano");
+            caidaAlimentos.vida--;
         }
 
         if (collision.CompareTag("coleccionable"))

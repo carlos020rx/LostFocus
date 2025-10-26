@@ -2838,6 +2838,7 @@ MonoBehaviour:
   nutrientesFin: 0
   popupTester: {fileID: 0}
   gameManager: {fileID: 0}
+  caidaAlimentos: {fileID: 0}
 --- !u!70 &1248975438
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

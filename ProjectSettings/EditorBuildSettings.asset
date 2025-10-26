@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenas/Jugar_Carlitos.unity
     guid: 5537bcd179062d54e9180dd473440385
+  - enabled: 1
+    path: Assets/Scenas/Jugar_Santiago.unity
+    guid: a546f0283368b89449d8e5796ec3cddc
   m_configObjects: {}

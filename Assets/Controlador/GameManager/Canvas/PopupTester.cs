@@ -86,7 +86,8 @@ public class PopupTester : MonoBehaviour
         if (blinkAutoTrigger && !_prevBlinkAuto)
         {
             // Arranca parpadeo por N segundos y se apaga solo
-            blinkingPanel?.StartBlink(blinkDurationSeconds);
+            //blinkingPanel?.StartBlink(blinkDurationSeconds);
+            blinkingPanel?.StartBlink();
 
             // Opcional: autorresetear el booleano para que quede listo para el próximo disparo
             blinkAutoTrigger = false;

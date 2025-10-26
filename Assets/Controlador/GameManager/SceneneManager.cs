@@ -20,4 +20,8 @@ public class SceneneManager : MonoBehaviour
     public void iniciarJuego(){
         SceneManager.LoadScene("Jugar_Carlitos");
     }
+
+    public void cerebro() {
+        SceneManager.LoadScene("Jugar_Santiago");
+    }
 }
