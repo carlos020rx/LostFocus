@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public PlayerMovement player;
     public GameObject granGota2,granGota3;
     public PopupTester popupTester;
-    //private int contador = 1;
     public caidaAlimentos caidaAlimentos;
 
     public GameObject btnIz, btnDer, btnSalto;
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
             }
 
             audioSource.Stop();
-            BGSound.Pause();
+            BGSound.Stop();
 
             if (!caidaAlimentos.murio && caidaAlimentos.miniJuegoFrutas == true)
             {
@@ -85,7 +84,9 @@ public class GameManager : MonoBehaviour
             popupTester.blinkAutoTrigger = false;
             //activarBotones();
             miniJuego1Sound.mute = true;
-            BGSound.Play();            
+            BGSound.Play();
+            audioSource.Play();
+
         }
     }
 
