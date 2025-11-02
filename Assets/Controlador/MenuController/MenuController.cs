@@ -9,6 +9,9 @@ public class MenuController : MonoBehaviour
     public GameObject menu;
     public GameObject menuOpciones;
 
+    public GameObject botonPausa;
+    
+
 
 
     [Header("-----MIXER-----")]
@@ -48,12 +51,14 @@ public class MenuController : MonoBehaviour
         menu.SetActive(false);
         menuOpciones.SetActive(false);
         Time.timeScale = 1;
+        botonPausa.SetActive(true);
     }
 
     public void abrirMenuOpciones()
     {
         menu.SetActive(false);
         menuOpciones.SetActive(true);
+        botonPausa.SetActive(false);
     }
 
 

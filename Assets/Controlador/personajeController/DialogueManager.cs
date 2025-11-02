@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> npcLines;
 
     public PopupTester popupTester;
+    public bool acaboIntestino,minijuego2 = false;
 
 
     private bool isPlayerTurn = true;
@@ -22,7 +23,7 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI npcText;
 
     public GameObject btnMov1, btnMov2, btnSalto;
-    public GameObject Nutrientes,Nutrientes2,GranGota1, GranGota2,TriggerInicial, TriggerMedio;
+    public GameObject Nutrientes,Nutrientes2,GranGota1, GranGota2,TriggerInicial, TriggerMedio,Neurona;
     public GameManager gameManager;
 
     // Indica si hay un diálogo activo
@@ -84,6 +85,15 @@ public class DialogueManager : MonoBehaviour
 
         }
 
+        if(currentNPCID == "Piramidal")
+        {
+            Debug.Log("Minijuego2");
+            StartCoroutine(desaparecerNeurona());
+            StartCoroutine(Minijuego2Mensaje());
+
+            minijuego2 = true;
+        }
+
         if (currentNPCID == "Inicio")
         {
             TriggerInicial.SetActive(false);
@@ -98,10 +108,18 @@ public class DialogueManager : MonoBehaviour
     }
 
     /*Corutinas*/
-    IEnumerator Minijuego1Mensaje() {
+    IEnumerator Minijuego1Mensaje()
+    {
         yield return new WaitForSeconds(0.5f);
 
         popupTester.playSequence = true;
+
+
+    }
+        IEnumerator Minijuego2Mensaje() {
+        yield return new WaitForSeconds(0.5f);
+
+        //popupTester.playSequence = true;
         
 
     }
@@ -109,11 +127,16 @@ public class DialogueManager : MonoBehaviour
     yield return new WaitForSeconds(2f);
     GranGota2.SetActive(false);
     }
-
+    IEnumerator desaparecerNeurona() {
+    yield return new WaitForSeconds(2f);
+    Neurona.SetActive(false);
+    }
     IEnumerator sigNivel()
     {
         yield return new WaitForSeconds(2f);
         Debug.Log("Ir a cerebro");
+        acaboIntestino = true;
+
     }
 
 

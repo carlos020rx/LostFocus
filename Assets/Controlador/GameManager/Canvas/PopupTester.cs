@@ -14,8 +14,8 @@ public class PopupTester : MonoBehaviour
     public PopupMessage message7; 
     public OverlayController overlay; // referencia al fondo oscuro
     public BlinkingPanel blinkingPanel;
-    [Header("Control único")]
-    public bool playSequence; // único booleano desde el Inspector
+    [Header("Control ï¿½nico")]
+    public bool playSequence; // ï¿½nico booleano desde el Inspector
     public bool showMessage4;
     public bool showMessage5;
     public bool blinkAutoTrigger; 
@@ -69,7 +69,7 @@ public class PopupTester : MonoBehaviour
         // Flanco de subida: inicia secuencia
         if (playSequence && !_prevPlay)
         {
-            // Por si había algo corriendo, cancelo y limpio
+            // Por si habï¿½a algo corriendo, cancelo y limpio
             StopSequenceAndHideAll();
             _sequenceRoutine = StartCoroutine(SequenceRoutine());
             terminoMensaje1 = false;
@@ -82,14 +82,14 @@ public class PopupTester : MonoBehaviour
             terminoMensaje1 = true;
         }
 
-        // Disparo automático del parpadeo independiente (flanco false -> true)
+        // Disparo automï¿½tico del parpadeo independiente (flanco false -> true)
         if (blinkAutoTrigger && !_prevBlinkAuto)
         {
             // Arranca parpadeo por N segundos y se apaga solo
             //blinkingPanel?.StartBlink(blinkDurationSeconds);
             blinkingPanel?.StartBlink();
 
-            // Opcional: autorresetear el booleano para que quede listo para el próximo disparo
+            // Opcional: autorresetear el booleano para que quede listo para el prï¿½ximo disparo
             blinkAutoTrigger = false;
         }
         _prevBlinkAuto = blinkAutoTrigger;
@@ -109,11 +109,11 @@ public class PopupTester : MonoBehaviour
             message3.Show(msg3Lifetime, pulse: false);
             sonidoAlerta.Play();
 
-            // Espera su vida útil + su animación de salida antes del delay extra
+            // Espera su vida ï¿½til + su animaciï¿½n de salida antes del delay extra
             yield return new WaitForSeconds(msg3Lifetime + message3.DisappearDuration);
         }
 
-        // 2) Delay de 1s después de que Mensaje 3 desaparece
+        // 2) Delay de 1s despuï¿½s de que Mensaje 3 desaparece
         yield return new WaitForSeconds(afterMsg3Delay);
 
         // Si en medio apagaron el booleano, no sigas
@@ -123,7 +123,7 @@ public class PopupTester : MonoBehaviour
         if (message1 != null) message1.Show(groupLifetime, pulse: false);
         if (message2 != null) message2.Show(groupLifetime, pulse: true);
 
-        // Ambos tienen el mismo lifetime, por lo que se irán EXACTAMENTE al mismo tiempo
+        // Ambos tienen el mismo lifetime, por lo que se irï¿½n EXACTAMENTE al mismo tiempo
         yield return new WaitForSeconds(groupLifetime + MaxDisappearDuration(message1, message2));
         overlay?.Hide();
 
@@ -149,7 +149,7 @@ public class PopupTester : MonoBehaviour
             StopCoroutine(_sequenceRoutine);
             _sequenceRoutine = null;
         }
-        // Oculta todo inmediatamente y cancela cualquier animación en curso
+        // Oculta todo inmediatamente y cancela cualquier animaciï¿½n en curso
         message1?.HideImmediate();
         message2?.HideImmediate();
         message3?.HideImmediate();

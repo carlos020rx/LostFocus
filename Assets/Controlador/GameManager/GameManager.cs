@@ -12,19 +12,25 @@ public class GameManager : MonoBehaviour
     public float minDelay = 5f;
     public float maxDelay = 10f;
     public PlayerMovement player;
-    public GameObject granGota2,granGota3;
+    public GameObject granGota2, granGota3, playerPosition, lugarcerebro, zoom;
     public PopupTester popupTester;
     public caidaAlimentos caidaAlimentos;
+
+    public DialogueManager dialogueManager;
 
     public GameObject btnIz, btnDer, btnSalto;
 
     public AudioSource BGSound, miniJuego1Sound;
 
     private int contador = 1;
-    
-    public Animation transition;
 
+    public Animation transition;
+    public GameObject panelTransition;
     public BlinkingPanel blinkingPanel;
+
+    public Spawner minijuego2;
+
+
 
 
 
@@ -51,7 +57,7 @@ public class GameManager : MonoBehaviour
 
             if (!caidaAlimentos.murio && caidaAlimentos.miniJuegoFrutas == true)
             {
-             miniJuego1Sound.mute = false;
+                miniJuego1Sound.mute = false;
             }
 
             //miniJuego1Sound.time = 5f;
@@ -76,11 +82,22 @@ public class GameManager : MonoBehaviour
             StartCoroutine(reinicioJuego());
 
         }
-        
-        if(caidaAlimentos.finMinijuego1 == true)
+
+        if (minijuego2.murio2 == true)
+        {
+            //miniJuego1Sound.mute = true;
+            minijuego2.vida = 3;
+            minijuego2.murio2 = false;
+            //popupTester.blinkAutoTrigger = false;
+            StartCoroutine(reinicioJuego2());
+
+        }
+
+        if (caidaAlimentos.finMinijuego1 == true)
         {
             popupTester.terminoMensaje1 = false;
             granGota3.SetActive(true);
+            zoom.SetActive(false);
             popupTester.blinkAutoTrigger = false;
             //activarBotones();
             miniJuego1Sound.mute = true;
@@ -88,6 +105,45 @@ public class GameManager : MonoBehaviour
             audioSource.Play();
 
         }
+        if (dialogueManager.acaboIntestino == true)
+        {
+            transition.Play();
+            panelTransition.SetActive(true);
+            StartCoroutine(cerebro());
+            dialogueManager.acaboIntestino = false;
+            panelTransition.SetActive(false);
+        }
+
+        if (dialogueManager.minijuego2 == true)
+        {
+            popupTester.showMessage7 = true;
+            StartCoroutine(inicioMinijuego2());
+            dialogueManager.minijuego2 = false;
+
+        }
+    }
+
+    IEnumerator inicioMinijuego2()
+    {
+
+        yield return new WaitForSeconds(1.5f);
+        minijuego2.minijuego2 = true;
+        
+
+
+    }
+
+
+    IEnumerator cerebro()
+    {
+
+        yield return new WaitForSeconds(1.5f);
+        playerPosition.transform.position = lugarcerebro.transform.position;
+        transition.Play("transition_exit");
+
+
+
+
     }
 
     IEnumerator reinicioJuego()
@@ -101,7 +157,22 @@ public class GameManager : MonoBehaviour
         caidaAlimentos.enMinijuego1 = true;
         popupTester.terminoMensaje1 = true;
         caidaAlimentos.contador = 1;
-      
+
+
+    }
+    IEnumerator reinicioJuego2()
+    {
+        yield return new WaitForSeconds(4f);
+        minijuego2.vida = 3;
+        minijuego2.murio2 = false;
+        transition.Play("transition_exit");
+        minijuego2.minijuego2 = true;
+        //miniJuego1Sound.mute = false;
+        //caidaAlimentos.miniJuegoFrutas = true;
+        //caidaAlimentos.enMinijuego1 = true;
+        //opupTester.terminoMensaje1 = true;
+        //caidaAlimentos.contador = 1;
+
 
     }
     IEnumerator PlayRandomSound()
@@ -118,6 +189,7 @@ public class GameManager : MonoBehaviour
 
     public void desactivarBotones()
     {
+        Debug.Log("Minijuego2");
         btnDer.SetActive(false);
         btnSalto.SetActive(false);
         btnIz.SetActive(false);

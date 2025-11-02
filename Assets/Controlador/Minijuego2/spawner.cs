@@ -25,9 +25,14 @@ public class Spawner : MonoBehaviour
     private float timerTemporizador;
     private int minutos, segundos;
     [SerializeField] private TMP_Text txtTiempo;
-    [SerializeField, Tooltip("tiempo en segundos")] private float tiempoRestante = 30f;
+    [SerializeField, Tooltip("tiempo en segundos")] private float tiempoRestante = 45f;
     public GameObject temporizador;
-    private int contador =1;
+    private int contador = 1;
+    
+    public GameObject panelTransition;
+    public Animation transition;
+
+    public bool murio2 = false;
 
 
 
@@ -93,6 +98,17 @@ public class Spawner : MonoBehaviour
         }
 
         slider.value = (float)vida;
+
+        if (vida == 0  && murio2 == false)
+        {
+            Debug.Log("Perdiste");
+            panelTransition.SetActive(true);
+            transition.Play();
+            murio2 = true;
+            minijuego2 = false;
+            timer = 45f;
+
+        }
         
 
 
