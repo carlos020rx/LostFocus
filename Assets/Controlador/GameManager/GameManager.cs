@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
 
     public void desactivarBotones()
     {
-        Debug.Log("Minijuego2");
+       
         btnDer.SetActive(false);
         btnSalto.SetActive(false);
         btnIz.SetActive(false);

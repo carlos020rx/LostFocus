@@ -9,7 +9,7 @@ public class Spawner : MonoBehaviour
     [Header("Referencias")]
     public GameObject hitCirclePrefab;
     public RectTransform spawnArea;
-
+    public PopupTester popupTester2;
     [Header("Ajustes")]
     public float spawnInterval = 2f;
 
@@ -52,14 +52,20 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        minutos = (int)(timerTemporizador / 60f);
+        if (popupTester2.terminoMensaje1 == true && contador == 1)
+        {
+            popupTester2.showMessage4 = true;
+            contador = 2;
+            minijuego2 = true;
+        }
+            minutos = (int)(timerTemporizador / 60f);
         segundos = (int)(timerTemporizador - minutos * 60f);
 
         
 
         if (minijuego2)
         {
-
+            popupTester2.showMessage4 = true;
             timer += Time.deltaTime;
             if (timer >= spawnInterval)
             {
@@ -77,14 +83,16 @@ public class Spawner : MonoBehaviour
                 txtTiempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
             }
 
-            if (timerTemporizador > 0 && timerTemporizador <= 15 && contador == 1)
+            if (timerTemporizador > 0 && timerTemporizador <= 15 && contador == 2)
             {
                 //timerAudio.Stop();
                 //timerAudiox2.Play();
                 contador = 2;
 
                 //Aquí lo del aumento de dificultad
+                popupTester2.showMessage5 = true;
                 HitCircleController.modoDificilGlobal = true;
+
             }
             else if (timerTemporizador <= 0)
             {

@@ -20,6 +20,7 @@ public class PopupTester : MonoBehaviour
     public bool showMessage5;
     public bool blinkAutoTrigger; 
     public bool terminoMensaje1=false;
+    public bool terminoMensaje2 = false;
     public bool showMessage6;
     public bool showMessage7;
 
@@ -73,6 +74,7 @@ public class PopupTester : MonoBehaviour
             StopSequenceAndHideAll();
             _sequenceRoutine = StartCoroutine(SequenceRoutine());
             terminoMensaje1 = false;
+            terminoMensaje2 = false;
         }
         // Flanco de bajada: cancelar todo y ocultar inmediatamente
        if (!playSequence && _prevPlay)
@@ -80,6 +82,7 @@ public class PopupTester : MonoBehaviour
             StopSequenceAndHideAll();
 
             terminoMensaje1 = true;
+            terminoMensaje2 = true;
         }
 
         // Disparo autom�tico del parpadeo independiente (flanco false -> true)
@@ -132,6 +135,7 @@ public class PopupTester : MonoBehaviour
 
         playSequence = false;
         terminoMensaje1 = true;
+        terminoMensaje2 = true;
     }
 
     private float MaxDisappearDuration(PopupMessage a, PopupMessage b)

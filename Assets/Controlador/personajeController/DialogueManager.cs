@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> npcLines;
 
     public PopupTester popupTester;
+    public PopupTester popupTester2;
     public bool acaboIntestino,minijuego2 = false;
 
 
@@ -18,7 +19,7 @@ public class DialogueManager : MonoBehaviour
 
     private GameObject playerBubble;
     private TextMeshProUGUI playerText;
-
+    
     private GameObject npcBubble;
     private TextMeshProUGUI npcText;
 
@@ -91,7 +92,7 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(desaparecerNeurona());
             StartCoroutine(Minijuego2Mensaje());
 
-            minijuego2 = true;
+            
         }
 
         if (currentNPCID == "Inicio")
@@ -119,7 +120,7 @@ public class DialogueManager : MonoBehaviour
         IEnumerator Minijuego2Mensaje() {
         yield return new WaitForSeconds(0.5f);
 
-        //popupTester.playSequence = true;
+        popupTester2.playSequence = true;
         
 
     }
