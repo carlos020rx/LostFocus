@@ -18,8 +18,14 @@ public class EnemyAttackSimulator : MonoBehaviour
 
     private bool playerDodging = false;
 
+    private Vector3 posicionPlayer;
+    
+
     void Start()
     {
+        posicionPlayer = player.position;
+        Debug.Log(posicionPlayer);
+        
         //if (enableSimulation)
         //StartCoroutine(EnemyAttackLoop());
     }
@@ -83,19 +89,22 @@ public class EnemyAttackSimulator : MonoBehaviour
     // Este método lo puedes llamar desde tu otro script (por ejemplo, cuando el jugador acierta)
     public void PlayerDodge()
     {
+        posicionPlayer=player.position;
         if (!playerDodging)
             StartCoroutine(DodgeAnimation());
+        
     }
 
     IEnumerator DodgeAnimation()
     {
+        Debug.Log(posicionPlayer);
     playerDodging = true;
 
-    Vector3 originalPos = player.position;
+    Vector3 originalPos = posicionPlayer;
 
     // Límite horizontal del movimiento (ajústalos a tu escenario)
-    float leftLimit = -3f;
-    float rightLimit = 3f;
+    float leftLimit = 25f;
+    float rightLimit = 35f;
 
     // Elegir dirección aleatoria: -1 (izquierda) o +1 (derecha)
     int direction = Random.value < 0.5f ? -1 : 1;
@@ -121,6 +130,7 @@ public class EnemyAttackSimulator : MonoBehaviour
     // Aseguramos posición final exacta
     player.position = dodgePos;
 
-    playerDodging = false;
+        playerDodging = false;
+        Debug.Log(posicionPlayer);
     }
 }

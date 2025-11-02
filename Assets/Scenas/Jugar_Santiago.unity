@@ -2839,6 +2839,7 @@ MonoBehaviour:
   popupTester: {fileID: 0}
   gameManager: {fileID: 0}
   caidaAlimentos: {fileID: 0}
+  dialogueManager: {fileID: 0}
 --- !u!70 &1248975438
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3781,7 +3782,7 @@ GameObject:
   - component: {fileID: 2146262223}
   - component: {fileID: 2146262222}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Minijuego2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

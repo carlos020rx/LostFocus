@@ -61,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
 
     public DialogueManager dialogueManager;
 
+    public Spawner spawner;
+
 
     
 
@@ -139,6 +141,11 @@ public class PlayerMovement : MonoBehaviour
             voltear();
             //}
             inicioMinijuego = true;
+        }
+
+        if (spawner.minijuego2)
+        {
+            gameManager.desactivarBotones();
         }
 
         else if (dialogueManager.isDialogueActive)
