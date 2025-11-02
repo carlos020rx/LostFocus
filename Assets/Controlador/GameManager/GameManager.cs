@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     public float minDelay = 5f;
     public float maxDelay = 10f;
     public PlayerMovement player;
-    public GameObject granGota2,granGota3;
+    public GameObject granGota2,granGota3,playerPosition,lugarcerebro,zoom;
     public PopupTester popupTester;
     public caidaAlimentos caidaAlimentos;
+
+    public DialogueManager dialogueManager;
 
     public GameObject btnIz, btnDer, btnSalto;
 
@@ -23,8 +25,10 @@ public class GameManager : MonoBehaviour
     private int contador = 1;
     
     public Animation transition;
-
+    public GameObject panelTransition;  
     public BlinkingPanel blinkingPanel;
+    
+
 
 
 
@@ -51,7 +55,7 @@ public class GameManager : MonoBehaviour
 
             if (!caidaAlimentos.murio && caidaAlimentos.miniJuegoFrutas == true)
             {
-             miniJuego1Sound.mute = false;
+                miniJuego1Sound.mute = false;
             }
 
             //miniJuego1Sound.time = 5f;
@@ -76,11 +80,12 @@ public class GameManager : MonoBehaviour
             StartCoroutine(reinicioJuego());
 
         }
-        
-        if(caidaAlimentos.finMinijuego1 == true)
+
+        if (caidaAlimentos.finMinijuego1 == true)
         {
             popupTester.terminoMensaje1 = false;
             granGota3.SetActive(true);
+            zoom.SetActive(false);
             popupTester.blinkAutoTrigger = false;
             //activarBotones();
             miniJuego1Sound.mute = true;
@@ -88,6 +93,25 @@ public class GameManager : MonoBehaviour
             audioSource.Play();
 
         }
+        if (dialogueManager.acaboIntestino == true)
+        {
+            transition.Play();
+            panelTransition.SetActive(true);
+            StartCoroutine(cerebro());
+            dialogueManager.acaboIntestino = false;
+        }
+    }
+    
+    IEnumerator cerebro()
+    {
+
+        yield return new WaitForSeconds(1.5f);
+        playerPosition.transform.position = lugarcerebro.transform.position;
+        transition.Play("transition_exit");
+        
+        
+
+        
     }
 
     IEnumerator reinicioJuego()

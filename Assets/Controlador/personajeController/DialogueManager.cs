@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> npcLines;
 
     public PopupTester popupTester;
+    public bool acaboIntestino = false;
 
 
     private bool isPlayerTurn = true;
@@ -114,6 +115,8 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         Debug.Log("Ir a cerebro");
+        acaboIntestino = true;
+
     }
 
 
