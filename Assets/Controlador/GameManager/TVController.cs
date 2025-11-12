@@ -27,7 +27,8 @@ public class TVController : MonoBehaviour
 
     private int current = 0;
     private bool busy = false;
-
+    public int contador = 0;
+    public int contador2 = 0;
     void Awake()
     {
         InitializePanels();
@@ -45,8 +46,18 @@ public class TVController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            contador += 1;
+            contador2 += 1;
+            if (contador2 == 2 && contador<9)
+            {
+                NextPanel();
+                contador2 = 0;
+            }
             //OnQPressed();
-            NextPanel();
+            if (contador > 8)
+            {
+                NextPanel();
+            }
         }
     }
 
