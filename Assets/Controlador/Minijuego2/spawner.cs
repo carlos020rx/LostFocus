@@ -58,7 +58,7 @@ public class Spawner : MonoBehaviour
             contador = 2;
             minijuego2 = true;
         }
-            minutos = (int)(timerTemporizador / 60f);
+        minutos = (int)(timerTemporizador / 60f);
         segundos = (int)(timerTemporizador - minutos * 60f);
 
         
