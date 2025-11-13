@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
 
     public PopupTester popupTester;
     public PopupTester popupTester2;
-    public bool acaboIntestino,minijuego2 = false;
+    public bool acaboIntestino,minijuego2,siguienteEscenario = false;
 
 
     private bool isPlayerTurn = true;
@@ -106,6 +106,11 @@ public class DialogueManager : MonoBehaviour
             TriggerMedio.SetActive(false);
 
         }
+        if (currentNPCID == "Interneurona")
+        {
+            StartCoroutine(sigEscenario());
+
+        }
     }
 
     /*Corutinas*/
@@ -137,6 +142,13 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Debug.Log("Ir a cerebro");
         acaboIntestino = true;
+
+    }
+        IEnumerator sigEscenario()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Ir a cerebro");
+        siguienteEscenario=true ;
 
     }
 

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public float minDelay = 5f;
     public float maxDelay = 10f;
     public PlayerMovement player;
-    public GameObject granGota2, granGota3, playerPosition, lugarcerebro, zoom;
+    public GameObject granGota2, granGota3, playerPosition, lugarcerebro,lugarcerebro2, zoom;
     public PopupTester popupTester;
     public caidaAlimentos caidaAlimentos;
 
@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
             //miniJuego1Sound.mute = true;
             minijuego2.vida = 3;
             minijuego2.murio2 = false;
+            minijuego2.timerTemporizador=25f;
             //popupTester.blinkAutoTrigger = false;
             StartCoroutine(reinicioJuego2());
 
@@ -109,9 +110,8 @@ public class GameManager : MonoBehaviour
         {
             transition.Play();
             panelTransition.SetActive(true);
-            StartCoroutine(cerebro());
+            StartCoroutine(cerebro(lugarcerebro));
             dialogueManager.acaboIntestino = false;
-            panelTransition.SetActive(false);
         }
 
         if (dialogueManager.minijuego2 == true)
@@ -120,6 +120,14 @@ public class GameManager : MonoBehaviour
             StartCoroutine(inicioMinijuego2());
             dialogueManager.minijuego2 = false;
 
+        }
+        //Transición para cambiar de escenario entre cerebros
+        if (dialogueManager.siguienteEscenario)
+        {
+            transition.Play();
+            panelTransition.SetActive(true);
+            StartCoroutine(cerebro(lugarcerebro2));
+            dialogueManager.siguienteEscenario=false;
         }
     }
 
@@ -134,12 +142,14 @@ public class GameManager : MonoBehaviour
     }
 
 
-    IEnumerator cerebro()
+    IEnumerator cerebro(GameObject obj)
     {
-
+        
         yield return new WaitForSeconds(1.5f);
-        playerPosition.transform.position = lugarcerebro.transform.position;
+        playerPosition.transform.position = obj.transform.position;
         transition.Play("transition_exit");
+        yield return new WaitForSeconds(1.5f);
+        panelTransition.SetActive(false);
 
 
 
@@ -162,11 +172,14 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator reinicioJuego2()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         minijuego2.vida = 3;
         minijuego2.murio2 = false;
+        
         transition.Play("transition_exit");
         minijuego2.minijuego2 = true;
+        yield return new WaitForSeconds(0.6f);
+        panelTransition.SetActive(false);
         //miniJuego1Sound.mute = false;
         //caidaAlimentos.miniJuegoFrutas = true;
         //caidaAlimentos.enMinijuego1 = true;
