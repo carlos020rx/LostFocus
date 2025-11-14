@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
 
     public PopupTester popupTester;
     public PopupTester popupTester2;
-    public bool acaboIntestino,minijuego2,siguienteEscenario = false;
+    public bool acaboIntestino,minijuego2,siguienteEscenario,siguienteEscenario2,siguienteEscenario3 = false;
 
 
     private bool isPlayerTurn = true;
@@ -26,6 +26,8 @@ public class DialogueManager : MonoBehaviour
     public GameObject btnMov1, btnMov2, btnSalto;
     public GameObject Nutrientes,Nutrientes2,GranGota1, GranGota2,TriggerInicial, TriggerMedio,Neurona;
     public GameManager gameManager;
+
+    public NPCPatron nPCPatron;
 
     // Indica si hay un diálogo activo
     public bool isDialogueActive { get; private set; } = false;
@@ -111,6 +113,24 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(sigEscenario());
 
         }
+         if (currentNPCID == "Neurona")
+        {
+            StartCoroutine(sigEscenario2());
+
+        }
+
+        if (currentNPCID == "Neurona2")
+        {
+            nPCPatron.siguientePaso(1);
+        }
+                if (currentNPCID == "Neurona3")
+        {
+            nPCPatron.siguientePaso(2);
+        }
+                if (currentNPCID == "Neurona4")
+        {
+            StartCoroutine(sigEscenario3());
+        }
     }
 
     /*Corutinas*/
@@ -149,6 +169,22 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Debug.Log("Ir a cerebro");
         siguienteEscenario=true ;
+
+    }
+
+    IEnumerator sigEscenario2()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Ir a cerebro");
+        siguienteEscenario2=true ;
+
+    }
+
+        IEnumerator sigEscenario3()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Ir a cerebro");
+        siguienteEscenario3=true ;
 
     }
 
