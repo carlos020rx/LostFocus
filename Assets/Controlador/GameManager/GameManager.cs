@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public float minDelay = 5f;
     public float maxDelay = 10f;
     public PlayerMovement player;
-    public GameObject granGota2, granGota3, playerPosition, lugarcerebro, zoom;
+    public GameObject granGota2, granGota3, playerPosition, lugarcerebro,lugarcerebro2,lugarcerebro3,lugarcerebro4, zoom;
     public PopupTester popupTester;
     public caidaAlimentos caidaAlimentos;
 
@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public BlinkingPanel blinkingPanel;
 
     public Spawner minijuego2;
+
+    public NPCPatron nPCPatron;
 
 
 
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour
             //miniJuego1Sound.mute = true;
             minijuego2.vida = 3;
             minijuego2.murio2 = false;
+            minijuego2.timerTemporizador=25f;
             //popupTester.blinkAutoTrigger = false;
             StartCoroutine(reinicioJuego2());
 
@@ -109,9 +112,8 @@ public class GameManager : MonoBehaviour
         {
             transition.Play();
             panelTransition.SetActive(true);
-            StartCoroutine(cerebro());
+            StartCoroutine(cerebro(lugarcerebro));
             dialogueManager.acaboIntestino = false;
-            panelTransition.SetActive(false);
         }
 
         if (dialogueManager.minijuego2 == true)
@@ -121,27 +123,64 @@ public class GameManager : MonoBehaviour
             dialogueManager.minijuego2 = false;
 
         }
+        //Transición para cambiar de escenario entre cerebros
+        if (dialogueManager.siguienteEscenario)
+        {
+            transition.Play();
+            panelTransition.SetActive(true);
+            StartCoroutine(cerebro(lugarcerebro2));
+            dialogueManager.siguienteEscenario=false;
+        }
+
+                //Transición para cambiar de escenario entre cerebros
+        if (dialogueManager.siguienteEscenario2)
+        {
+            transition.Play();
+            panelTransition.SetActive(true);
+            StartCoroutine(cerebro2(lugarcerebro3));
+            dialogueManager.siguienteEscenario2=false;
+
+        }
+
+        if (dialogueManager.siguienteEscenario3)
+        {
+            transition.Play();
+            panelTransition.SetActive(true);
+            StartCoroutine(cerebro2(lugarcerebro4));
+            dialogueManager.siguienteEscenario3=false;
+
+        }
     }
 
     IEnumerator inicioMinijuego2()
     {
-
         yield return new WaitForSeconds(1.5f);
         minijuego2.minijuego2 = true;
-        
-
 
     }
 
 
-    IEnumerator cerebro()
+    IEnumerator cerebro(GameObject obj)
     {
-
+        
         yield return new WaitForSeconds(1.5f);
-        playerPosition.transform.position = lugarcerebro.transform.position;
+        playerPosition.transform.position = obj.transform.position;
         transition.Play("transition_exit");
+        yield return new WaitForSeconds(1.5f);
+        panelTransition.SetActive(false);
 
+    }
 
+        IEnumerator cerebro2(GameObject obj)
+    {
+        
+        yield return new WaitForSeconds(1.5f);
+        playerPosition.transform.position = obj.transform.position;
+        transition.Play("transition_exit");
+        yield return new WaitForSeconds(1.5f);
+        panelTransition.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        nPCPatron.caminarAhora=true;
 
 
     }
@@ -162,11 +201,14 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator reinicioJuego2()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         minijuego2.vida = 3;
         minijuego2.murio2 = false;
+        
         transition.Play("transition_exit");
         minijuego2.minijuego2 = true;
+        yield return new WaitForSeconds(0.6f);
+        panelTransition.SetActive(false);
         //miniJuego1Sound.mute = false;
         //caidaAlimentos.miniJuegoFrutas = true;
         //caidaAlimentos.enMinijuego1 = true;
@@ -189,7 +231,7 @@ public class GameManager : MonoBehaviour
 
     public void desactivarBotones()
     {
-        Debug.Log("Minijuego2");
+       
         btnDer.SetActive(false);
         btnSalto.SetActive(false);
         btnIz.SetActive(false);
