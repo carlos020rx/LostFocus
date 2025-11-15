@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         // --- Movimiento por giroscopio/acelerómetro ---
         // El valor de Input.acceleration.x suele estar entre -1 y 1
         // --- Entrada del acelerómetro ---
-        if (popupTester.terminoMensaje1 == true)
+        if (popupTester.terminoMensaje1)
         {
             gameManager.desactivarBotones();
 
@@ -148,14 +148,14 @@ public class PlayerMovement : MonoBehaviour
             gameManager.desactivarBotones();
         }
 
-        else if (dialogueManager.isDialogueActive)
+        if (dialogueManager.isDialogueActive)
         {
             gameManager.desactivarBotones();
         }
-        else
-        {
-            gameManager.activarBotones();
-        }
+        //if(!dialogueManager.isDialogueActive)
+        //{
+          //  gameManager.activarBotones();
+        //}
 
 
 

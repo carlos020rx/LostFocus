@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
 {
     private Coroutine randomSoundCoroutine;
 
-    public AudioSource audioSource;
-    public AudioClip[] soundEffects;
+    public AudioSource audioSource,audioSource2;
+    
+    public AudioClip[] soundEffects,soundEffects2;
     public float minDelay = 5f;
     public float maxDelay = 10f;
     public PlayerMovement player;
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     public AudioSource BGSound, miniJuego1Sound;
 
+    public GameObject BGSoundIntestino,BGSoundCerebro,SoundMinijuego2;
+
     private int contador = 1;
 
     public Animation transition;
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour
     public Spawner minijuego2;
 
     public NPCPatron nPCPatron;
+
+    public bool effectosCerebro;
 
 
 
@@ -102,26 +107,45 @@ public class GameManager : MonoBehaviour
             granGota3.SetActive(true);
             zoom.SetActive(false);
             popupTester.blinkAutoTrigger = false;
-            //activarBotones();
+            activarBotones();
             miniJuego1Sound.mute = true;
             BGSound.Play();
             audioSource.Play();
+            panelTransition.SetActive(false);
+            caidaAlimentos.finMinijuego1=false;
 
         }
         if (dialogueManager.acaboIntestino == true)
         {
+            panelTransition.SetActive(true);
             transition.Play();
             panelTransition.SetActive(true);
             StartCoroutine(cerebro(lugarcerebro));
             dialogueManager.acaboIntestino = false;
+            effectosCerebro=true;
+            StartCoroutine(PlayRandomSoundCerebro());
+            BGSoundIntestino.SetActive(false);
+            BGSoundCerebro.SetActive(true);
         }
 
         if (dialogueManager.minijuego2 == true)
         {
+            BGSoundCerebro.SetActive(false);
+            SoundMinijuego2.SetActive(true);
             popupTester.showMessage7 = true;
             StartCoroutine(inicioMinijuego2());
             dialogueManager.minijuego2 = false;
 
+
+
+        }
+        if (minijuego2.finMinijuego2)
+        {
+            Debug.Log("Probando");
+            SoundMinijuego2.SetActive(false);
+            BGSoundCerebro.SetActive(true);
+            minijuego2.finMinijuego2=false;
+            activarBotones();
         }
         //Transición para cambiar de escenario entre cerebros
         if (dialogueManager.siguienteEscenario)
@@ -155,6 +179,8 @@ public class GameManager : MonoBehaviour
     IEnumerator inicioMinijuego2()
     {
         yield return new WaitForSeconds(1.5f);
+        SoundMinijuego2.SetActive(true);
+        BGSoundCerebro.SetActive(false);
         minijuego2.minijuego2 = true;
 
     }
@@ -219,7 +245,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator PlayRandomSound()
     {
-        while (true)
+        while (!effectosCerebro)
         {
             float delay = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
@@ -229,8 +255,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator PlayRandomSoundCerebro()
+    {
+
+        while (effectosCerebro)
+        {
+            //Debug.Log("Efectos sonido cerebro");
+            float delay = Random.Range(minDelay, maxDelay);
+            yield return new WaitForSeconds(delay);
+
+            int index = Random.Range(0, soundEffects2.Length);
+            audioSource2.PlayOneShot(soundEffects2[index]);
+        }
+    }
+
     public void desactivarBotones()
     {
+        //Debug.Log("Desactivando botones");
        
         btnDer.SetActive(false);
         btnSalto.SetActive(false);
@@ -239,6 +280,7 @@ public class GameManager : MonoBehaviour
 
     public void activarBotones()
     {
+        //Debug.Log("activando botones");
         btnDer.SetActive(true);
         btnSalto.SetActive(true);
         btnIz.SetActive(true);

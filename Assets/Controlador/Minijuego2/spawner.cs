@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
     private float timer;
 
     [Header("Control del minijuego")]
-    public bool minijuego2 = false; // Activa el minijuego
+    public bool minijuego2,finMinijuego2 = false; // Activa el minijuego
 
     public int vida;
     public Slider slider;
@@ -41,6 +41,8 @@ public class Spawner : MonoBehaviour
     private Vector2 lastPos = Vector2.zero;
     private bool hasSpawnedOnce = false;
 
+    public GameObject BGSoundCerebro,SoundMinijuego2;
+
 
 
     //public AudioSource timerAudio;
@@ -62,6 +64,8 @@ public class Spawner : MonoBehaviour
     {
         if (popupTester2.terminoMensaje1 == true && contador == 1)
         {
+            BGSoundCerebro.SetActive(false);
+            SoundMinijuego2.SetActive(true);
             popupTester2.showMessage4 = true;
             contador = 2;
             minijuego2 = true;
@@ -109,7 +113,7 @@ public class Spawner : MonoBehaviour
                 panelMinijuego2.SetActive(false);
                 minijuego2 = false;
                 temporizador.SetActive(false);
-
+                finMinijuego2=true;
                 //timerAudiox2.Stop();
 
 
