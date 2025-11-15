@@ -7,7 +7,9 @@ using UnityEngine;
 /// La entrada por teclado (Q) está separada: ReadKeyboardInput() -> OnQPressed() -> NextPanel().
 /// </summary>
 public class TVController : MonoBehaviour
+
 {
+    public SecuenciaPanelsFinal controlador;
     [Header("Paneles (en orden)")]
     [Tooltip("Cada panel debe tener un CanvasGroup")]
     public List<CanvasGroup> panels = new List<CanvasGroup>();
@@ -44,19 +46,17 @@ public class TVController : MonoBehaviour
     /// </summary>
     public void ReadKeyboardInput()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             contador += 1;
             contador2 += 1;
-            if (contador2 == 2 && contador<9)
+            if (contador2 == 2 && contador<15)
             {
                 NextPanel();
                 contador2 = 0;
             }
-            //OnQPressed();
-            if (contador > 8)
-            {
-                NextPanel();
+            if (contador == 14) {
+                controlador.IniciarSecuencia();
             }
         }
     }

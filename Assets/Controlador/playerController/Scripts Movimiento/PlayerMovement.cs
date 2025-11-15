@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     public DialogueManager dialogueManager;
 
     public Spawner spawner;
-
+    public bool EnMiniJuego1=true;
 
     
 
@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         // --- Movimiento por giroscopio/acelerómetro ---
         // El valor de Input.acceleration.x suele estar entre -1 y 1
         // --- Entrada del acelerómetro ---
-        if (popupTester.terminoMensaje1)
+        if (popupTester.terminoMensaje1 && EnMiniJuego1==true )
         {
             gameManager.desactivarBotones();
 

@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Vista/Jugar.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenas/PruebaSalome/InicioP.unity
     guid: 0116c5dc0a7893648b4864106c56a2eb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenas/PruebaSalome/JugarP2.unity
     guid: 258b7fc4a66750c43a22136af52b5f78
   - enabled: 1
@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenas/Jugar_Carlitos.unity
     guid: 5537bcd179062d54e9180dd473440385
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenas/Jugar_Santiago.unity
     guid: a546f0283368b89449d8e5796ec3cddc
   m_configObjects: {}

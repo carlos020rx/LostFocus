@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
@@ -20,7 +21,24 @@ public class MenuController : MonoBehaviour
     public Slider effectsSlider;
 
     public GameObject musicaIMG, noMusicaIMG, effectsIMG, noEffectsIMG;
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Inicio")
+        {
+            Debug.Log("MenuController reseteado.");
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
