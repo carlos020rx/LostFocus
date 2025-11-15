@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
             audioSource.Play();
             panelTransition.SetActive(false);
             caidaAlimentos.finMinijuego1=false;
-
+            player.EnMiniJuego1 = false;
         }
         if (dialogueManager.acaboIntestino == true)
         {

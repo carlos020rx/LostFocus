@@ -857,7 +857,6 @@ GameObject:
   - component: {fileID: 1408649049}
   - component: {fileID: 1408649048}
   - component: {fileID: 1408649047}
-  - component: {fileID: 1408649046}
   - component: {fileID: 1408649045}
   m_Layer: 0
   m_Name: gota
@@ -887,36 +886,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1408649046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408649044}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f3c790e5a11144783585daa5521465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2
-  jumpForce: 2
-  Player: {fileID: 0}
-  velocidad: 5
-  groundCheck: {fileID: 1624785754}
-  groundCheckRadius: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  footstepsAudio: {fileID: 0}
-  jump: {fileID: 0}
-  audRecolectado: {fileID: 0}
-  textoNutriente: {fileID: 0}
-  nutrienteSlider: {fileID: 0}
-  inicioMinijuego: 0
-  nutrientesFin: 0
-  popupTester: {fileID: 0}
-  gameManager: {fileID: 0}
 --- !u!70 &1408649047
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

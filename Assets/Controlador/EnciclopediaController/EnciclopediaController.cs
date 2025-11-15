@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class EnciclopediaController : MonoBehaviour
 {
     public static EnciclopediaController Instance;
@@ -9,11 +9,11 @@ public class EnciclopediaController : MonoBehaviour
     private HashSet<string> unlockedItems = new HashSet<string>();
 
     public GameObject Enciclopedia;
-
+    public GameObject MenuControl;
     public GameObject scrollPersonajes;
     public GameObject scrollEscenarios;
     public GameObject scrollColleccionables;
-
+    private int contador=1;
 
     private void Awake()
     {
@@ -28,7 +28,28 @@ public class EnciclopediaController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Inicio")
+        {
+            Debug.Log("Regresamos al menú. Reiniciando EnciclopediaController.");
+            Destroy(gameObject); // destruye el singleton persistente
+        }
+    }
+    public void Update()
+    {
+       
+    }
     void Start()
     {
         Enciclopedia.SetActive(false);
