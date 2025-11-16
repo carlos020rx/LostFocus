@@ -194,7 +194,7 @@ public class DialogueManager : MonoBehaviour
     GameObject npcBubbleObj, TextMeshProUGUI npcTextObj,
     bool startsWithPlayer)
     {
-        yield return new WaitForSeconds(1f); // Espera antes de iniciar
+        yield return new WaitForSeconds(0.2f); // Espera antes de iniciar
 
 
         playerLines.Clear();
@@ -219,7 +219,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator desaparecerGranGota()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         GranGota1.SetActive(false);
 
 

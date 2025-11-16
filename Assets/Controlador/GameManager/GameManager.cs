@@ -114,6 +114,9 @@ public class GameManager : MonoBehaviour
             panelTransition.SetActive(false);
             caidaAlimentos.finMinijuego1=false;
             player.EnMiniJuego1 = false;
+            player.inputX=0;
+            player.spriteRenderer.flipX = player.moveInput < 0;
+
         }
         if (dialogueManager.acaboIntestino == true)
         {
