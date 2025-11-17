@@ -103,8 +103,8 @@ public class EnemyAttackSimulator : MonoBehaviour
     Vector3 originalPos = posicionPlayer;
 
     // Límite horizontal del movimiento (ajústalos a tu escenario)
-    float leftLimit = 25f;
-    float rightLimit = 35f;
+    float leftLimit = 27f;
+    float rightLimit = 33f;
 
     // Elegir dirección aleatoria: -1 (izquierda) o +1 (derecha)
     int direction = Random.value < 0.5f ? -1 : 1;

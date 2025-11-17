@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
             caidaAlimentos.murio = false;
             blinkingPanel.StopBlink();
             //popupTester.blinkAutoTrigger = false;
+            panelTransition.SetActive(true);
             StartCoroutine(reinicioJuego());
 
         }
@@ -216,10 +217,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator reinicioJuego()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         caidaAlimentos.vida = 3;
         caidaAlimentos.murio = false;
         transition.Play("transition_exit");
+        yield return new WaitForSeconds(1f);
+        panelTransition.SetActive(false);
         miniJuego1Sound.mute = false;
         caidaAlimentos.miniJuegoFrutas = true;
         caidaAlimentos.enMinijuego1 = true;
