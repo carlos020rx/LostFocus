@@ -114,16 +114,24 @@ public class caidaAlimentos : MonoBehaviour
                 //Aqu� lo del aumento de dificultad
 
             }
-            else if (timer <= 0)
+ 
+    
+             if (timer <= 2)
             {
+                
+                miniJuegoFrutas = false;
+
+                if(timer<=0)
+                {
+                enMinijuego1 = false;
+                finMinijuego1 = true;
+                
                 //Aqu� lo que se hace cuando se acaba el tiempo (gana)
                 timerAudio.Stop();
                 timerAudiox2.Stop();
-                enMinijuego1 = false;
                 temporizador.SetActive(false);
                 timerAudiox2.Stop();
-                miniJuegoFrutas = false;
-                finMinijuego1 = true;
+
                 quitarLimites();
 
 
@@ -145,7 +153,8 @@ public class caidaAlimentos : MonoBehaviour
         }
 
     }
-
+ }
+ 
     private void ponerLimites()
     {
         limIzq.SetActive(true);
@@ -157,5 +166,6 @@ public class caidaAlimentos : MonoBehaviour
         limIzq.SetActive(false);
         limDer.SetActive(false);
     }
+
 
 }
