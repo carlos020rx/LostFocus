@@ -14,16 +14,16 @@ public class PlayerMovement : MonoBehaviour
     private bool mirandoDerecha = true;
     private float x;
     public float velocidad = 5f;
-    private float contador=3;
-    private float inputX;
+    private float contador = 3;
+    public float inputX;
 
 
 
     [Header("Componentes")]
     private Rigidbody2D rb;
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
-    
+    public SpriteRenderer spriteRenderer;
+
 
     [Header("Ground Check")]
     public Transform groundCheck;   // Empty en los pies
@@ -32,11 +32,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
 
     [Header("Sonidos")]
-    public AudioSource footstepsAudio,jump, audRecolectado;
+    public AudioSource footstepsAudio, jump, audRecolectado;
 
     // --- Nuevo Input System ---
     private EntradasMovimiento controles;
-    private float moveInput;
+    public float moveInput;
     private bool jumpPressed;
 
     private float sensibilidad = 2.0f;
@@ -62,9 +62,9 @@ public class PlayerMovement : MonoBehaviour
     public DialogueManager dialogueManager;
 
     public Spawner spawner;
-    public bool EnMiniJuego1=true;
+    public bool EnMiniJuego1 = true;
 
-    
+
 
 
     void Awake()
@@ -112,80 +112,73 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float input = moveInput;
 
-        //if (inicioMinijuego)
-        //{
-        // --- Movimiento por giroscopio/acelerómetro ---
-        // El valor de Input.acceleration.x suele estar entre -1 y 1
-        // --- Entrada del acelerómetro ---
-        if (popupTester.terminoMensaje1 && EnMiniJuego1==true )
+        // --- BLOQUEO GENERAL DE INPUTS ---
+        if (dialogueManager.isDialogueActive || spawner.minijuego2)
         {
+            gameManager.desactivarBotones();
+            return; // bloquea todo movimiento
+        }
+
+        // -----------------------------
+        // 🔵 MOVIMIENTO EN MINIJUEGO 1
+        // -----------------------------
+        if (popupTester.terminoMensaje1 && EnMiniJuego1)
+        {
+            Debug.Log("En minijuego");
             gameManager.desactivarBotones();
 
             float x = Input.acceleration.x * sensibilidad;
 
-            // Usamos la inclinación solo si es significativa
             if (Mathf.Abs(x) > 0.1f)
                 inputX = x;
             else
                 inputX = 0f;
 
-            // Movimiento
             Player.position += new Vector3(inputX * velocidad * Time.deltaTime, 0f, 0f);
 
-            // Animación
-            //animator.SetFloat("isMoving2", Mathf.Abs(inputX));
+            voltear(); // orienta sprite
 
-            // Voltear sprite
-            voltear();
-            //}
             inicioMinijuego = true;
+
+            // animaciones
+            animator.SetFloat("isMoving2", Mathf.Abs(inputX));
+            animator.SetBool("isGrounded", isGrounded);
+
+            return; // muy importante: evita que el movimiento normal se ejecute
         }
 
-        if (spawner.minijuego2)
-        {
-            gameManager.desactivarBotones();
-        }
 
-        if (dialogueManager.isDialogueActive)
-        {
-            gameManager.desactivarBotones();
-        }
-        //if(!dialogueManager.isDialogueActive)
-        //{
-          //  gameManager.activarBotones();
-        //}
+        // -----------------------------
+        // 🟢 MOVIMIENTO NORMAL
+        // -----------------------------
+        gameManager.activarBotones();
 
-
-
-        // --- Movimiento horizontal ---
+        // movimiento horizontal normal
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        // --- Voltear el sprite ---
-        if (moveInput > 0)
-            spriteRenderer.flipX = false;
-        else if (moveInput < 0)
-            spriteRenderer.flipX = true;
+        // voltear sprite
+        if (moveInput > 0) spriteRenderer.flipX = false;
+        else if (moveInput < 0) spriteRenderer.flipX = true;
 
-        // --- Revisar si está en el suelo ---
+        // revisar si está en el suelo
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // --- Saltar ---
+        // saltar
         if (jumpPressed && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             animator.SetTrigger("Jump");
             jump.Play();
-            jumpPressed = false; // evita múltiples saltos en una sola pulsación
+            jumpPressed = false;
         }
 
-        // --- Parámetros del Animator ---
+        // animaciones
         float movimientoTotal = Mathf.Max(Mathf.Abs(inputX), Mathf.Abs(moveInput));
         animator.SetFloat("isMoving2", movimientoTotal);
         animator.SetBool("isGrounded", isGrounded);
 
-        // --- Sonido de pasos ---
+        // sonido de pasos
         if (isGrounded && Mathf.Abs(moveInput) > 0.01f)
         {
             if (!footstepsAudio.isPlaying)
@@ -197,23 +190,21 @@ public class PlayerMovement : MonoBehaviour
                 footstepsAudio.Stop();
         }
 
-        if (nutrientes == 5 && contador==3)
+        // lógica final de nutrientes
+        if (nutrientes == 5 && contador == 3)
         {
             nutrientesFin = true;
             contador = 2;
         }
-    
+
     }
 
     public void voltear()
     {
-        if (mirandoDerecha && inputX < 0f || !mirandoDerecha && inputX > 0f)
-        {
-            mirandoDerecha = !mirandoDerecha;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
+     if (inputX > 0)
+        spriteRenderer.flipX = false;
+    else if (inputX < 0)
+        spriteRenderer.flipX = true;
 
     }
 

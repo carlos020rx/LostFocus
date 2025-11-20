@@ -10,7 +10,6 @@ public class HitCircleController : MonoBehaviour
     [Header("Referencias")]
     public RectTransform outerCircle;
     public RectTransform innerCircle;
-    public TextMeshProUGUI feedbackText;
 
     [Header("Ajustes")]
     public float shrinkDuration = 1.5f;
@@ -46,7 +45,6 @@ public class HitCircleController : MonoBehaviour
     {
         timer = 0f;
         shrinkDuration = 1.5f;
-        feedbackText.text = "";
 
         rectTransform = GetComponent<RectTransform>();
         outerCircle.localScale = Vector3.one * startScale;
@@ -95,7 +93,7 @@ public class HitCircleController : MonoBehaviour
                     spawner.QuitarVida();
                 }
 
-                ShowFeedback("Fallo!", Color.red);
+                StartCoroutine(DestroyAfterDelay());
                 fallo.SetActive(true);
                 CambiarColor(Color.red);
             }
@@ -139,7 +137,7 @@ public class HitCircleController : MonoBehaviour
 
         if (progress >= perfectStart && progress <= perfectEnd)
         {
-            ShowFeedback("Perfecto!", Color.green);
+            StartCoroutine(DestroyAfterDelay());
             acierto.SetActive(true);
             CambiarColor(Color.green);
             FindObjectOfType<EnemyAttackSimulator>().PlayerDodge();
@@ -147,7 +145,7 @@ public class HitCircleController : MonoBehaviour
         else
         {
             FindObjectOfType<EnemyAttackSimulator>().atacar();
-            ShowFeedback("Fallo!", Color.red);
+            StartCoroutine(DestroyAfterDelay());
             FindObjectOfType<Spawner>().vida--;
             fallo.SetActive(true);
             CambiarColor(Color.red);
@@ -160,14 +158,6 @@ public class HitCircleController : MonoBehaviour
             outerCircleImage.color = nuevoColor;
     }
 
-    void ShowFeedback(string message, Color color)
-    {
-        if (feedbackText == null) return;
-
-        feedbackText.text = message;
-        feedbackText.color = color;
-        StartCoroutine(DestroyAfterDelay());
-    }
 
     IEnumerator DestroyAfterDelay()
     {
